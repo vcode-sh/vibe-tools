@@ -28,12 +28,26 @@ Study the screenshot and document EVERYTHING you see:
 **Visual Elements:**
 - Headings (H1, H2, H3, etc.) with sizes
 - Paragraph text and descriptions
-- Images with aspect ratios
-- Buttons/CTAs (primary, secondary, outline)
+- Images with aspect ratios (estimate dimensions for placeholders)
+- Buttons/CTAs (primary, secondary, outline, ghost)
 - Icons (where and what type)
-- Background colors/gradients/images
-- Border radius and shadows
 - Decorative elements
+
+**Backgrounds & Layers:**
+- Background colors (solid, transparent with opacity)
+- Background gradients (direction, colors, stops)
+- Background images (full-width, contained, patterns)
+- Overlays (dark/light overlays on images, opacity level)
+- Layered elements (what's on top of what, z-index order)
+- Parallax or fixed backgrounds
+
+**Border & Shape Details:**
+- Border radius (slight rounding vs pill-shaped vs circle)
+- Estimate radius: small (~5px), medium (~10-15px), large (~20-30px), pill (~50px), circle (50%)
+- Border styles (solid, dashed, none)
+- Border colors and widths
+- Box shadows (subtle, medium, heavy)
+- Card/container shapes
 
 **Interactive Components (identify if present):**
 - Sliders/Carousels
@@ -136,6 +150,30 @@ Use these block types based on what you see in the design:
 "icon": {"icon": {"svg": "<svg>...</svg>"}, "fill": "currentColor", "type": "svg"}
 ```
 
+*Border Radius (rounded corners):*
+```json
+"styleAttributes": {
+  "borderTopLeftRadius": ["10px"],
+  "borderTopRightRadius": ["10px"],
+  "borderBottomLeftRadius": ["10px"],
+  "borderBottomRightRadius": ["10px"],
+  "borderRadiusLink_Extra": true  // links all corners
+}
+```
+Or use CSS variables: `"borderTopLeftRadius": ["var(--wp--custom--border-radius--medium, 15px)"]`
+Circle: `"borderRadius": ["50%"]`
+
+*Background Images:*
+```json
+"styleAttributes": {
+  "backgroundImage": ["url(https://placehold.co/1920x1080)"],
+  "backgroundSize": ["cover"],
+  "backgroundPosition": ["center center"],
+  "backgroundRepeat": ["no-repeat"],
+  "backgroundAttachment": ["fixed"]  // for parallax
+}
+```
+
 *Gradients:*
 ```json
 "styleAttributes": {
@@ -144,6 +182,46 @@ Use these block types based on what you see in the design:
 }
 ```
 For text gradients add: `"backgroundClip": ["text"], "color": ["transparent"]`
+
+*Overlays (div layers on images):*
+```json
+// Parent container with position relative
+"styleAttributes": {
+  "position": ["relative"]
+}
+// Overlay child with position absolute
+"styleAttributes": {
+  "position": ["absolute"],
+  "top": ["0"],
+  "left": ["0"],
+  "right": ["0"],
+  "bottom": ["0"],
+  "backgroundColor": ["rgba(0,0,0,0.5)"],
+  "zIndex": ["1"]
+}
+// Content on top
+"styleAttributes": {
+  "position": ["relative"],
+  "zIndex": ["2"]
+}
+```
+
+*Shadows:*
+```json
+"styleAttributes": {
+  "boxShadow": ["0px 10px 30px rgba(0,0,0,0.1)"]
+}
+```
+Or use presets: `"boxShadow": ["var(--wp--preset--shadow--soft)"]`
+
+*Borders:*
+```json
+"styleAttributes": {
+  "borderWidth": ["1px"],
+  "borderStyle": ["solid"],
+  "borderColor": ["#e0e0e0"]
+}
+```
 
 *Form Attributes (buttons):*
 ```json
@@ -287,6 +365,10 @@ Before saving, verify:
 - [ ] Layout matches original screenshot
 - [ ] Colors approximate original design
 - [ ] Interactive components use correct variations
+- [ ] Border radius applied to rounded elements
+- [ ] Background images use placehold.co URLs
+- [ ] Overlays use position absolute with proper z-index
+- [ ] Shadows match design intensity
 
 ## Common Mistakes to Avoid
 
