@@ -1,0 +1,21 @@
+{
+  "name": "vibe-tools",
+  "owner": {
+    "name": "Vibe Code",
+    "email": "hello@vcode.sh",
+    "url": "https://x.com/vcode_sh"
+  },
+  "description": "Collection of Claude Code plugins by Vibe Code",
+  "repository": "https://github.com/vcode-sh/vibe-tools",
+  "license": "MIT",
+  "plugins": [
+    {
+      "name": "greenshift-blocks",
+      "source": "./plugins/greenshift-blocks",
+      "description": "Generate WordPress Gutenberg blocks using Greenshift/GreenLight plugin. Create sections, layouts, hero sections, galleries, and complete pages.",
+      "version": "1.0.0",
+      "category": "wordpress",
+      "tags": ["wordpress", "gutenberg", "greenshift", "blocks", "layouts"]
+    }
+  ]
+}

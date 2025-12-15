@@ -1,0 +1,20 @@
+{
+  "name": "greenshift-blocks",
+  "version": "1.0.0",
+  "description": "Generate WordPress Gutenberg blocks using Greenshift/GreenLight. Create sections, layouts, hero sections, galleries, and complete pages.",
+  "author": {
+    "name": "Vibe Code",
+    "url": "https://x.com/vcode_sh"
+  },
+  "keywords": [
+    "wordpress",
+    "gutenberg",
+    "greenshift",
+    "greenlight",
+    "blocks",
+    "sections",
+    "layouts"
+  ],
+  "repository": "https://github.com/vcode-sh/vibe-tools",
+  "license": "MIT"
+}

@@ -1,0 +1,44 @@
+---
+description: Create a hero section with background, heading, and CTA for WordPress Greenshift
+argument-hint: [page title or hero description]
+---
+
+# Greenshift Hero Section Generator
+
+Generate an attractive hero section for a WordPress page.
+
+## Instructions
+
+1. Read the `greenshift-blocks` skill documentation in `docs/`
+2. Use patterns from `docs/03-layouts.md` and `docs/05-animations.md`
+3. Create hero section: $ARGUMENTS
+
+## Hero Structure
+
+```
+Section (alignfull, background image/video)
+└── Content Container (centered, max-width)
+    ├── Subtitle (optional, uppercase, animated)
+    ├── Heading (h1, large font, animated with delay)
+    ├── Description (optional, max-width for readability)
+    └── CTA Buttons (optional, inline-flex)
+```
+
+## Elements to include
+
+- **Background**: image (backgroundImage) or video (video parameter)
+- **Overlay**: optionally darkened overlay
+- **Animations**: clip-right, fade-up, fade with delays
+- **Responsiveness**: smaller fonts on mobile, centered text
+- **Height**: min 80vh or 100vh on desktop
+
+## Technical requirements
+
+- Section with `align: "full"` and `isVariation: "contentwrapper"`
+- Background as `backgroundImage: ["url(...)"]` or `video` object
+- Overlay: `overlay: {"color":"#000000","opacity":0.3}`
+- Animations with increasing delay (0, 300, 600, 900ms)
+
+## Output
+
+Return ONLY ready Greenshift block HTML code, no explanations.
