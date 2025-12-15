@@ -65,11 +65,73 @@ Every Greenshift element follows this pattern:
 
 4. **HTML Tags**: Default is `div`. Prefer `tag: "a"` over `tag: "button"` for buttons (except forms).
 
-5. **Images**: Always `loading="lazy"`. Use `https://placehold.co/WIDTHxHEIGHT`. Don't add `width`/`height` HTML attributes - WordPress adds them automatically from `originalWidth`/`originalHeight` JSON params.
+5. **Images**: Always `loading="lazy"`. Use `https://placehold.co/WIDTHxHEIGHT`. When using `originalWidth` and `originalHeight` in JSON, you MUST also add matching `width` and `height` HTML attributes to the `<img>` tag.
 
 6. **Links**: `linkNewWindow: true` = `target="_blank"` + auto `rel="noopener"`
 
 **See `docs/01-core-structure.md` and `docs/02-attributes.md` for full details.**
+
+---
+
+## SVG Icons Encoding
+
+SVG content inside the JSON `icon.icon.svg` parameter MUST use Unicode escape sequences, not raw HTML or escaped quotes.
+
+### Character Encoding Table
+
+| Character | Escape Sequence |
+|-----------|-----------------|
+| `<`       | `\u003c`        |
+| `>`       | `\u003e`        |
+| `"`       | `\u0022`        |
+
+### Example
+
+**WRONG:**
+```json
+"icon":{"icon":{"svg":"<svg viewBox=\"0 0 24 24\"><path d=\"M8 12l2 2\"/></svg>"},...}
+```
+
+**CORRECT:**
+```json
+"icon":{"icon":{"svg":"\u003csvg viewBox=\u00220 0 24 24\u0022\u003e\u003cpath d=\u0022M8 12l2 2\u0022/\u003e\u003c/svg\u003e"},...}
+```
+
+---
+
+## Card Design Pattern: Inset Rounded Images
+
+When creating cards with images that have rounded corners INSIDE the card (with visible margin/padding around them):
+
+### Structure
+```
+Card Wrapper (white bg, border-radius: 15px, overflow: hidden)
+├── Image Container (padding: 8px top/left/right, 0px bottom)
+│   └── Image (border-radius: 10px on ALL 4 corners, object-fit: cover)
+└── Footer/Label Area (padding for content)
+```
+
+### Key Points
+
+1. **Card wrapper**: `overflow: hidden` + larger border-radius (e.g., 15px)
+2. **Image container**: padding on 3 sides, `paddingBottom: 0px` (no gap to footer)
+3. **Image itself**: SMALLER border-radius than card (e.g., 10px) on ALL 4 corners
+4. This creates the "inset" look where white card background shows as margin around image
+
+### Image styleAttributes for Inset Cards
+
+```json
+"styleAttributes": {
+  "width": ["100%"],
+  "aspectRatio": ["16/10"],
+  "objectFit": ["cover"],
+  "borderTopLeftRadius": ["var(--wp--custom--border-radius--small, 10px)"],
+  "borderTopRightRadius": ["var(--wp--custom--border-radius--small, 10px)"],
+  "borderBottomLeftRadius": ["var(--wp--custom--border-radius--small, 10px)"],
+  "borderBottomRightRadius": ["var(--wp--custom--border-radius--small, 10px)"],
+  "borderRadiusLink_Extra": true
+}
+```
 
 ---
 
@@ -168,7 +230,7 @@ var(--wp--custom--transition--smooth, all 1s cubic-bezier(0.66,0,0.34,1))
 ### Image
 ```html
 <!-- wp:greenshift-blocks/element {"id":"gsbp-XXXXXXX","tag":"img","localId":"gsbp-XXXXXXX","src":"https://placehold.co/800x600","alt":"Description","originalWidth":800,"originalHeight":600,"styleAttributes":{"width":["100%"],"height":["auto"],"objectFit":["cover"],"borderRadius":["var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dborder-radius\u002d\u002dsmall, 10px)"]}} -->
-<img class="gsbp-XXXXXXX" src="https://placehold.co/800x600" alt="Description" loading="lazy"/>
+<img class="gsbp-XXXXXXX" src="https://placehold.co/800x600" alt="Description" width="800" height="600" loading="lazy"/>
 <!-- /wp:greenshift-blocks/element -->
 ```
 
@@ -225,6 +287,36 @@ For blocks displaying WordPress data (posts, users, taxonomies):
 Use `greenshift-blocks/swiper` for image galleries and hero sliders.
 
 **See `docs/06-slider.md` for complete slider documentation.**
+
+---
+
+## Design Detail Attention Checklist
+
+Before generating output, verify these visual details from the reference design:
+
+### 1. Border Radius
+- Card/container radius vs image/inner element radius (usually different)
+- Are corners rounded on all 4 sides or specific corners only?
+- Is it subtle (5-10px), medium (15px), large (20-30px), or pill (50px+)?
+
+### 2. Padding/Margins
+- Is image edge-to-edge or inset with visible container background?
+- Gap between image and footer/content below
+- Internal padding of content areas
+
+### 3. Image Handling
+- Does image fill container (`object-fit: cover`) or maintain aspect ratio (`object-fit: contain`)?
+- Does image have its own rounded corners separate from container?
+- Aspect ratio of image area
+- `originalWidth`/`originalHeight` in JSON → matching `width`/`height` in HTML
+
+### 4. Shadows
+- Subtle vs prominent shadow
+- Shadow on card vs shadow on image
+
+### 5. Background Relationships
+- Section background vs card background vs image background
+- Overlay effects or gradients
 
 ---
 

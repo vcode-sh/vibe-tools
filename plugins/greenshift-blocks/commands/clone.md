@@ -157,35 +157,37 @@ Can use `cubic-bezier()` for advanced easing:
 
 ---
 
-### Step 5: Read ALL Documentation (MANDATORY)
+### Step 5: Read Documentation (MANDATORY)
 
-You MUST read these files before generating code:
+You MUST read these files before generating code. Read them IN THIS ORDER:
 
-**Core Reference (ALWAYS READ):**
-```
-${CLAUDE_PLUGIN_ROOT}/ref/instructions.md
-```
-This file contains ALL the rules and block structures. Read it completely.
-
-**Skill Documentation:**
+**1. SKILL.md (ALWAYS READ FIRST):**
 ```
 ${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/SKILL.md
-${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/reference.md
+```
+This is the primary reference with all critical rules, SVG encoding, image handling, and card patterns.
+
+**2. Core Structure & Attributes (ALWAYS READ):**
+```
+${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/01-core-structure.md
+${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/02-attributes.md
 ```
 
-**Specific Docs Based on Design:**
+**3. Specific Docs Based on Design (READ AS NEEDED):**
 - Layouts: `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/03-layouts.md`
 - Styling: `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/04-styling-advanced.md`
 - Animations: `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/05-animations.md`
 - Sliders: `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/06-slider.md`
 - Dynamic Content: `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/07-dynamic-content.md`
-- Variations: `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/08-variations.md`
+- Variations (Accordions, Tabs, etc.): `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/08-variations.md`
 - CSS Variables: `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/09-css-variables.md`
 
-**Templates for Reference:**
+**4. Templates for Reference:**
 ```
 ${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/templates/
 ```
+
+**NOTE:** Do NOT read `ref/instructions.md` - it's too large and causes token errors. The skill docs above contain all necessary information.
 
 ### Step 6: Available Block Types Reference
 
@@ -368,8 +370,8 @@ For GSAP: `import gsap from "{{PLUGIN_URL}}/libs/motion/gsap.js";`
    - Always `loading="lazy"`
    - Use `https://placehold.co/WxH` for placeholders
    - Include `originalWidth` and `originalHeight` in JSON params
-   - Do NOT add `width`/`height` HTML attributes - WordPress adds them automatically from JSON params
-   - Example: `{"originalWidth": 600, "originalHeight": 400}` → WordPress outputs `width="600" height="400"`
+   - MUST also add matching `width` and `height` HTML attributes to the `<img>` tag
+   - Example: `{"originalWidth": 600, "originalHeight": 400}` → `<img ... width="600" height="400" loading="lazy"/>`
 
 6. **Responsive values**: Arrays `["desktop", "tablet", "mobile_l", "mobile_p"]`
    - Single value `["10px"]` applies to all breakpoints
@@ -458,21 +460,34 @@ Transitions: motion > accent > smooth > mild > elegant > soft > creative > ease-
 
 Before saving, verify:
 
+**Structure & IDs:**
 - [ ] Every block has unique `gsbp-XXXXXXX` ID
 - [ ] `localId` matches `id` for EVERY block
 - [ ] NO inline `style` attributes ANYWHERE
 - [ ] `class` includes `localId` when `styleAttributes` present
-- [ ] Images have `loading="lazy"`
 - [ ] Section → Content Area → Elements hierarchy
+
+**Images:**
+- [ ] Images have `loading="lazy"`
+- [ ] Images have `width` and `height` HTML attributes matching `originalWidth`/`originalHeight` JSON
+- [ ] Background images use placehold.co URLs
+
+**SVG Icons:**
+- [ ] SVG content uses Unicode escapes: `\u003c` for `<`, `\u003e` for `>`, `\u0022` for `"`
+
+**Styling:**
 - [ ] CSS variables used (not hardcoded values)
 - [ ] Responsive arrays for key dimensions
+
+**Design Details:**
+- [ ] Border radius: card radius vs image/inner element radius (usually different)
+- [ ] Card images: inset look requires SMALLER radius on image than card wrapper
+- [ ] Padding/margins: image edge-to-edge or inset with visible container background?
+- [ ] Image `object-fit`: cover (fills) vs contain (maintains ratio)
+- [ ] Shadows: subtle vs prominent, on card vs on image
 - [ ] Layout matches original screenshot
 - [ ] Colors approximate original design
-- [ ] Interactive components use correct variations
-- [ ] Border radius applied to rounded elements
-- [ ] Background images use placehold.co URLs
 - [ ] Overlays use position absolute with proper z-index
-- [ ] Shadows match design intensity
 
 ## Common Mistakes to Avoid
 
@@ -484,8 +499,9 @@ Before saving, verify:
 6. **Same IDs** - Every single block needs unique ID
 7. **Wrong tag for buttons** - Use `a` tag, not `button` (unless in forms)
 8. **SVG stroke on wrong element** - Put stroke/fill on `<path>`, not `<svg>` (WordPress strips them from svg)
-9. **Adding width/height to img HTML** - Don't add, WordPress adds from originalWidth/originalHeight JSON
+9. **Missing width/height on img HTML** - MUST add matching `width`/`height` attributes when using `originalWidth`/`originalHeight` in JSON
 10. **HTML comments for organization** - WordPress STRIPS all HTML comments - don't use them
+11. **SVG not Unicode-encoded** - SVG in `icon.icon.svg` MUST use `\u003c` for `<`, `\u003e` for `>`, `\u0022` for `"`
 
 ## If Image Cannot Be Read
 
@@ -500,8 +516,9 @@ If the image path is invalid:
 2. Read and analyze the image thoroughly
 3. Ask user: "CSS Variables or Exact Colors?"
 4. Ask user: "Static, Subtle, or Full Animations?"
-5. Read `ref/instructions.md` (full documentation)
-6. Read relevant docs based on what's in the design
-7. Generate block code following all rules + user preferences
-8. Save to HTML file
-9. Confirm to user
+5. Read `SKILL.md` first (primary reference with critical rules)
+6. Read `docs/01-core-structure.md` and `docs/02-attributes.md`
+7. Read relevant specific docs based on what's in the design
+8. Generate block code following all rules + user preferences
+9. Save to HTML file
+10. Confirm to user

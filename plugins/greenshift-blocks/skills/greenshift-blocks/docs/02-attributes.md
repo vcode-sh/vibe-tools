@@ -34,14 +34,14 @@
 
 1. **Always** add `loading="lazy"` to HTML
 2. Use placeholder URLs: `https://placehold.co/WIDTHxHEIGHT`
-3. **Do NOT** add `width`/`height` HTML attributes - use `originalWidth`/`originalHeight` in JSON
-4. IMG tag should only have: `class`, `src`, `alt`, `loading="lazy"`, `data-aos-*`
+3. When using `originalWidth` and `originalHeight` in JSON, you MUST also add matching `width` and `height` HTML attributes to the `<img>` tag
+4. IMG tag should have: `class`, `src`, `alt`, `width`, `height`, `loading="lazy"`, `data-aos-*`
 
 ### Image Example
 
 ```html
 <!-- wp:greenshift-blocks/element {"id":"gsbp-img001","tag":"img","localId":"gsbp-img001","src":"https://placehold.co/800x600","alt":"Hero image","originalWidth":800,"originalHeight":600,"styleAttributes":{"width":["100%"],"height":["auto"],"objectFit":["cover"]}} -->
-<img class="gsbp-img001" src="https://placehold.co/800x600" alt="Hero image" loading="lazy"/>
+<img class="gsbp-img001" src="https://placehold.co/800x600" alt="Hero image" width="800" height="600" loading="lazy"/>
 <!-- /wp:greenshift-blocks/element -->
 ```
 
@@ -191,6 +191,23 @@ Used with `tag: "svg"` for SVG icons.
 - Used for SVG icons (`tag: "svg"`).
 - Contains an `icon` object with the SVG code (`svg`) or font icon class (`font`).
 - **Important**: Remove `xmlns` attributes from `<svg>` and `<path>` tags in final HTML output.
+- **CRITICAL**: SVG content inside the JSON `icon.icon.svg` parameter MUST use Unicode escape sequences:
+
+| Character | Escape Sequence |
+|-----------|-----------------|
+| `<`       | `\u003c`        |
+| `>`       | `\u003e`        |
+| `"`       | `\u0022`        |
+
+**WRONG:**
+```json
+"icon":{"icon":{"svg":"<svg viewBox=\"0 0 24 24\"><path d=\"M8 12l2 2\"/></svg>"},...}
+```
+
+**CORRECT:**
+```json
+"icon":{"icon":{"svg":"\u003csvg viewBox=\u00220 0 24 24\u0022\u003e\u003cpath d=\u0022M8 12l2 2\u0022/\u003e\u003c/svg\u003e"},...}
+```
 
 ### Icon Structure
 
