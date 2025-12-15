@@ -99,6 +99,52 @@ Use AskUserQuestion tool with these options:
 2. **"Subtle Animations (Recommended)"** - Gentle fade-up animations on scroll. Professional and modern.
 3. **"Full Animations"** - More dynamic entrance effects with staggered delays. More engaging but heavier.
 
+### Step 5: Ask User for Additional Context (Optional but Recommended)
+
+Screenshots can be misinterpreted - embedded content, browser UI elements, or complex layouts may not be recognized correctly. ASK the user:
+
+**"Do you have any additional details about this design I should know?"**
+
+Use AskUserQuestion tool with these options:
+1. **"No, screenshot is clear"** - Proceed with analysis as-is.
+2. **"Yes, let me clarify"** - User will provide additional context.
+
+**If user chooses to clarify, ask them to describe:**
+- Which elements are actual components vs browser/embed artifacts
+- Specific functionality (e.g., "the cards should be clickable links")
+- Content that should be different (e.g., "use different placeholder text")
+- Elements to skip or ignore
+- Specific interactions (e.g., "hover effects on buttons")
+- Responsive behavior preferences
+
+**Common clarifications to look for:**
+| Screenshot Issue | User Might Clarify |
+|------------------|-------------------|
+| Browser chrome visible | "Ignore the browser UI, just the page content" |
+| Embedded iframe/widget | "That's an embedded map, use a placeholder div" |
+| Multiple sections | "Only convert the hero section, not the nav" |
+| Video thumbnails | "That's a video player, use videolightbox variation" |
+| Form elements | "Those are form fields, skip them for now" |
+| Mobile vs desktop | "This is mobile view, make it responsive" |
+| Charts/graphs visible | "Create real chart" or "Just use image placeholder" |
+
+**Special Case: Charts Detected**
+
+If you detect charts, graphs, or data visualizations in the screenshot, ASK specifically:
+
+**"I see what looks like a chart/graph in the design. How should I handle it?"**
+
+Use AskUserQuestion tool with these options:
+1. **"Create Real Interactive Chart"** - Will use Greenshift's ApexCharts (`type: "chart"`, `isVariation: "chart"`). You'll need to ask about chart type (line, bar, pie, area, radar) and sample data.
+2. **"Use Image Placeholder"** - Will use a placeholder image in place of the chart. Simpler, no interactivity.
+3. **"Skip This Element"** - Don't include the chart area at all.
+
+**If user wants real chart, follow up with:**
+- Chart type: line, area, bar, pie, radar, candlestick
+- Sample data structure (or use placeholder data)
+- Color scheme preference
+- Read `docs/11-charts.md` for ApexCharts configuration
+
 ---
 
 ## Animation Guidelines (When User Chooses Animations)
@@ -157,7 +203,7 @@ Can use `cubic-bezier()` for advanced easing:
 
 ---
 
-### Step 5: Read Documentation (MANDATORY)
+### Step 6: Read Documentation (MANDATORY)
 
 You MUST read these files before generating code. Read them IN THIS ORDER:
 
@@ -189,7 +235,7 @@ ${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/templates/
 
 **NOTE:** Do NOT read `ref/instructions.md` - it's too large and causes token errors. The skill docs above contain all necessary information.
 
-### Step 6: Available Block Types Reference
+### Step 7: Available Block Types Reference
 
 Use these block types based on what you see in the design:
 
@@ -351,7 +397,7 @@ For GSAP: `import gsap from "{{PLUGIN_URL}}/libs/motion/gsap.js";`
 }
 ```
 
-### Step 7: Generate Precise Block Code
+### Step 8: Generate Precise Block Code
 
 **CRITICAL RULES (MUST FOLLOW):**
 
@@ -442,7 +488,7 @@ Border: xlarge > large > medium > small > mini > circle
 Transitions: motion > accent > smooth > mild > elegant > soft > creative > ease-in-out > ease
 ```
 
-### Step 8: Save Output
+### Step 9: Save Output
 
 1. Generate the complete HTML block code
 2. Ask user for output path/filename or suggest based on content (e.g., `hero-section.html`, `pricing-table.html`)
@@ -516,9 +562,10 @@ If the image path is invalid:
 2. Read and analyze the image thoroughly
 3. Ask user: "CSS Variables or Exact Colors?"
 4. Ask user: "Static, Subtle, or Full Animations?"
-5. Read `SKILL.md` first (primary reference with critical rules)
-6. Read `docs/01-core-structure.md` and `docs/02-attributes.md`
-7. Read relevant specific docs based on what's in the design
-8. Generate block code following all rules + user preferences
-9. Save to HTML file
-10. Confirm to user
+5. Ask user: "Any additional details about this design?" (clarify ambiguous elements)
+6. Read `SKILL.md` first (primary reference with critical rules)
+7. Read `docs/01-core-structure.md` and `docs/02-attributes.md`
+8. Read relevant specific docs based on what's in the design
+9. Generate block code following all rules + user preferences + clarifications
+10. Save to HTML file
+11. Confirm to user
