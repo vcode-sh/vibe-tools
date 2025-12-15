@@ -109,8 +109,8 @@ Use these block types based on what you see in the design:
 | `marquee` | Scrolling text/content |
 | `buttoncomponent` | Styled buttons with variants |
 | `videolightbox` | Video with popup lightbox |
-| `youtubeplay` | YouTube video embed |
-| `vimeoplay` | Vimeo video embed |
+| `youtubeplay` | YouTube video embed (background) |
+| `vimeoplay` | Vimeo video embed (background) |
 | `svgtextpath` | Curved text on SVG path |
 | `chart` | ApexCharts (line, area, bar, pie, radar, candlestick) |
 
@@ -121,12 +121,55 @@ Use these block types based on what you see in the design:
 - `span` - Inline text
 - `a` - Buttons and links (prefer over `button`)
 - `img` - Images
-- `video` - Native video
-- `audio` - Audio player
-- `svg` - Icons
+- `video` - Native video with `<source>` child
+- `audio` - Audio player with `<source>` child
+- `svg` - Icons (use `icon` parameter)
 - `table`, `tr`, `td`, `th` - Tables
 - `iframe` - YouTube/Vimeo embeds
-- `button` - Only for form buttons
+- `button` - Only for form buttons (use `formAttributes: {type: "button"}`)
+
+**Special Parameters by Feature:**
+
+*Icons (SVG):*
+```json
+"tag": "svg",
+"icon": {"icon": {"svg": "<svg>...</svg>"}, "fill": "currentColor", "type": "svg"}
+```
+
+*Gradients:*
+```json
+"styleAttributes": {
+  "imageGradient_Extra": true,
+  "backgroundImage": ["linear-gradient(135deg, #color1 0%, #color2 100%)"]
+}
+```
+For text gradients add: `"backgroundClip": ["text"], "color": ["transparent"]`
+
+*Form Attributes (buttons):*
+```json
+"tag": "button", "formAttributes": {"type": "button"}
+```
+
+*Dynamic Attributes:*
+```json
+"dynamicAttributes": [{"name": "data-type", "value": "section-component"}]
+```
+
+*Custom Scripts:*
+```json
+"customJs": "console.log('test');", "customJsEnabled": true
+```
+For GSAP: `import gsap from "{{PLUGIN_URL}}/libs/motion/gsap.js";`
+
+*Keyframe Animations:*
+```json
+"styleAttributes": {
+  "animation_keyframes_Extra": [{"name": "gs_123", "code": "0%{opacity:0}100%{opacity:1}"}],
+  "animation": ["gs_123 1s ease"],
+  "animationTimeline": ["view()"],  // for scroll trigger
+  "animationRange": ["entry"]
+}
+```
 
 ### Step 5: Generate Precise Block Code
 
@@ -161,7 +204,12 @@ Use these block types based on what you see in the design:
 
 8. **Links**: Use `tag: "a"` with `href`, for external add `linkNewWindow: true`
 
-9. **Animations**: Use `animation` object with `type`, `duration`, `delay`, `easing`, `onlyonce`
+9. **AOS Animations**: Use `animation` object:
+   ```json
+   "animation": {"type": "fade-up", "duration": 800, "delay": 200, "easing": "ease", "onlyonce": true}
+   ```
+   Types: fade-up, fade-down, fade-left, fade-right, zoom-in, zoom-out, flip-up, slide-up
+   Renders as: `data-aos="fade-up" data-aos-duration="800" data-aos-delay="200"`
 
 **LAYOUT HIERARCHY (MANDATORY):**
 ```
@@ -189,6 +237,26 @@ For Charts:
 - Read `docs/11-charts.md` for ApexCharts configuration
 - Use `type: "chart"` and `isVariation: "chart"`
 - Configure via `chartData` with `options` containing chart JSON
+
+For Dynamic Content (Query Grids):
+- Read `docs/07-dynamic-content.md` for dynamic blocks
+- Use `wp:greenshift-blocks/querygrid` with `query_filters`
+- Dynamic text: wrap in `<dynamictext></dynamictext>` with `dynamictext` param
+- Dynamic links: use `dynamiclink` param for `<a>` and `<img>`
+- Available placeholders: `{{POST_ID}}`, `{{POST_TITLE}}`, `{{POST_URL}}`, `{{CURRENT_DATE_YMD}}`
+
+For Audio:
+- Use `tag: "audio"` with `controls: true`
+- Child `<source>` element with type
+
+**CSS Variables Quick Reference:**
+```
+Font: giga > grand > high > xxl > xl > l > m > r > s > xs > mini
+Spacing: 100 > 90 > 80 > 70 > 60 > 50 > 40 > 30 > 20
+Shadows: highlight > accent > soft > elegant > mild > focus
+Border: xlarge > large > medium > small > mini > circle
+Transitions: motion > accent > smooth > mild > elegant > soft > creative > ease-in-out > ease
+```
 
 ### Step 6: Save Output
 
