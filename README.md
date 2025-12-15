@@ -1,76 +1,82 @@
 # Vibe Tools
 
-Claude Code plugin marketplace by [Vibe Code](https://x.com/vcode_sh).
+> Because copy-pasting WordPress blocks like it's 2015 is *so* last decade.
 
-## Installation
+A Claude Code plugin marketplace for people who'd rather vibe than grind. Built by [Vibe Code](https://x.com/vcode_sh) - we automate the boring stuff so you can focus on the creative stuff. Or coffee. Probably coffee.
 
-### Add Marketplace
+## Quick Start
 
 ```bash
+# Add the marketplace (one time thing, we promise)
 /plugin marketplace add vcode-sh/vibe-tools
-```
 
-### Install Plugins
-
-```bash
-# Install greenshift-blocks plugin
+# Install what you need
 /plugin install greenshift-blocks@vibe-tools
 ```
 
+That's it. No npm install, no dependency hell, no "works on my machine" moments.
+
 ## Available Plugins
 
-| Plugin | Description |
-|--------|-------------|
-| [greenshift-blocks](./plugins/greenshift-blocks) | Generate WordPress Gutenberg blocks using Greenshift/GreenLight |
+| Plugin | What it does | Vibe level |
+|--------|--------------|------------|
+| [greenshift-blocks](./plugins/greenshift-blocks) | WordPress Gutenberg blocks that actually work | Maximum |
 
-## Plugins
+## greenshift-blocks
 
-### greenshift-blocks
+Generate production-ready WordPress Gutenberg blocks using Greenshift/GreenLight. Because manually writing JSON-in-HTML-comments is a special kind of torture we don't wish on anyone.
 
-Generate production-ready WordPress Gutenberg blocks using the Greenshift/GreenLight block system.
-
-**Features:**
-- Complete section and page generation
-- Responsive layouts with flexbox
-- AOS animations
-- CSS variables for theming
-- Ready-to-paste WordPress block markup
+**What you get:**
+- Full sections and pages in seconds
+- Responsive layouts (yes, mobile too)
+- Animations that don't look like 2010 jQuery
+- CSS variables because we're civilized
+- Copy-paste ready code (finally, copy-paste done right)
 
 **Commands:**
-- `/gs:section` - Create WordPress sections
-- `/gs:hero` - Hero section with background and CTA
-- `/gs:columns` - Column layouts (2-4 columns)
-- `/gs:element` - Single elements
-- `/gs:gallery` - Image galleries
-- `/gs:card` - Card components
-- `/gs:page` - Complete pages
 
-[Full documentation](./plugins/greenshift-blocks/README.md)
+| Command | Does the thing |
+|---------|----------------|
+| `/gs:section` | Sections. Shocking, right? |
+| `/gs:hero` | Hero sections with that *chef's kiss* |
+| `/gs:columns` | 2-4 column layouts |
+| `/gs:element` | Individual elements |
+| `/gs:gallery` | Image galleries |
+| `/gs:card` | Card components |
+| `/gs:page` | Entire pages. Yes, really. |
 
-## Repository Structure
+[Full docs](./plugins/greenshift-blocks/README.md) for the curious.
+
+## Structure
 
 ```
 vibe-tools/
 ├── .claude-plugin/
-│   └── marketplace.json      # Marketplace manifest
+│   └── marketplace.json      # The brain
 ├── plugins/
-│   └── greenshift-blocks/    # Greenshift blocks plugin
-│       ├── .claude-plugin/
-│       │   └── plugin.json   # Plugin manifest
-│       ├── commands/         # Slash commands
-│       ├── agents/           # Specialized agents
-│       └── skills/           # Skills with docs & templates
-└── README.md
+│   └── greenshift-blocks/    # The muscle
+│       ├── commands/         # /gs:* magic
+│       ├── agents/           # The specialists
+│       └── skills/           # The knowledge
+└── README.md                 # You are here
 ```
 
 ## Contributing
 
-Contributions welcome! Please submit pull requests to add new plugins or improve existing ones.
+Got a plugin idea? Found a bug? Want to argue about tabs vs spaces?
+
+PRs welcome. Issues tolerated. Memes appreciated.
 
 ## Author
 
-**Vibe Code** - [@vcode_sh](https://x.com/vcode_sh)
+**Vibe Code** — [@vcode_sh](https://x.com/vcode_sh)
+
+Building tools for developers who value their time. And sanity.
 
 ## License
 
-MIT
+MIT — Do whatever you want. Just don't blame us if your WordPress site becomes sentient.
+
+---
+
+*Built with Claude Code, caffeine, and questionable life choices.*
