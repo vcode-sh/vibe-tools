@@ -29,15 +29,35 @@ Automatically activates when you use keywords like:
 
 ### Slash Commands
 
+#### Layout & Sections
 | Command | Description |
 |---------|-------------|
 | `/gs:section [description]` | Creates a full WordPress section |
 | `/gs:hero [title]` | Hero section with background and CTA |
 | `/gs:columns [2-4] [description]` | Column layout |
-| `/gs:element [type] [description]` | Single element |
-| `/gs:gallery [type] [count]` | Image gallery |
-| `/gs:card [type] [description]` | Card component |
 | `/gs:page [type]` | Complete page |
+
+#### Elements & Components
+| Command | Description |
+|---------|-------------|
+| `/gs:element [type] [description]` | Single element |
+| `/gs:gallery [type] [count]` | Image gallery (grid, masonry, slider) |
+| `/gs:card [type] [description]` | Card component |
+
+#### Interactive Blocks
+| Command | Description |
+|---------|-------------|
+| `/gs:accordion [items] [topic]` | Collapsible accordion/FAQ |
+| `/gs:tabs [count] [titles]` | Tabbed interface |
+| `/gs:counter [number] [label]` | Animated number counter |
+| `/gs:countdown [date] [event]` | Countdown timer |
+| `/gs:table [rows]x[cols] [topic]` | Responsive table |
+| `/gs:video [type] [url]` | Video (native, YouTube, Vimeo, lightbox) |
+
+#### Design Conversion
+| Command | Description |
+|---------|-------------|
+| `/gs:clone [image path]` | Convert screenshot/image to Greenshift blocks |
 
 ### Agent: greenshift-builder
 
@@ -102,7 +122,14 @@ greenshift-blocks/
 │   ├── element.md           # /gs:element
 │   ├── gallery.md           # /gs:gallery
 │   ├── card.md              # /gs:card
-│   └── page.md              # /gs:page
+│   ├── page.md              # /gs:page
+│   ├── accordion.md         # /gs:accordion
+│   ├── tabs.md              # /gs:tabs
+│   ├── counter.md           # /gs:counter
+│   ├── countdown.md         # /gs:countdown
+│   ├── table.md             # /gs:table
+│   ├── video.md             # /gs:video
+│   └── clone.md             # /gs:clone (screenshot to blocks)
 ├── agents/
 │   └── greenshift-builder.md
 ├── skills/
@@ -110,7 +137,18 @@ greenshift-blocks/
 │       ├── SKILL.md         # Main skill
 │       ├── reference.md     # Quick reference
 │       ├── docs/            # Full documentation
-│       └── templates/       # Ready patterns
+│       └── templates/       # Ready-to-use patterns
+│           ├── section-wrapper.html
+│           ├── two-columns.html
+│           ├── hero-section.html
+│           ├── card-grid.html
+│           ├── faq-section.html
+│           ├── pricing-table.html
+│           ├── stats-counters.html
+│           ├── features-grid.html
+│           ├── cta-banner.html
+│           ├── testimonials-slider.html
+│           └── footer.html
 └── README.md
 ```
 

@@ -44,6 +44,13 @@ Generate production-ready WordPress Gutenberg blocks using Greenshift/GreenLight
 | `/gs:gallery` | Image galleries |
 | `/gs:card` | Card components |
 | `/gs:page` | Entire pages. Yes, really. |
+| `/gs:accordion` | FAQ/collapsible sections |
+| `/gs:tabs` | Tabbed interfaces |
+| `/gs:counter` | Animated number counters |
+| `/gs:countdown` | Countdown timers |
+| `/gs:table` | Responsive tables |
+| `/gs:video` | Videos (native, YouTube, Vimeo, lightbox) |
+| `/gs:clone` | Screenshot to Greenshift blocks |
 
 [Full docs](./plugins/greenshift-blocks/README.md) for the curious.
 
