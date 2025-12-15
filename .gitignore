@@ -1,1 +1,41 @@
+# macOS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Claude AI files
+**/claude.md
+**/*claude*.md
+.claude/
+.claude/**
+**/.claude/
+
+# Cursor IDE files
+.cursor/
+.cursor/**
+**/.cursor/
+.cursorrules
+
+# Other AI/IDE files
+**/.ai/
+**/.copilot/
+.copilot/**
+.copilot/
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+secrets/
+.secrets/
