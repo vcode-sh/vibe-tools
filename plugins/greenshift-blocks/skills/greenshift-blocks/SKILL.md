@@ -65,7 +65,7 @@ Every Greenshift element follows this pattern:
 
 4. **HTML Tags**: Default is `div`. Prefer `tag: "a"` over `tag: "button"` for buttons (except forms).
 
-5. **Images**: Always `loading="lazy"`. Use `https://placehold.co/WIDTHxHEIGHT`. No `width`/`height` HTML attributes.
+5. **Images**: Always `loading="lazy"`. Use `https://placehold.co/WIDTHxHEIGHT`. Don't add `width`/`height` HTML attributes - WordPress adds them automatically from `originalWidth`/`originalHeight` JSON params.
 
 6. **Links**: `linkNewWindow: true` = `target="_blank"` + auto `rel="noopener"`
 

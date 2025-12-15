@@ -65,7 +65,99 @@ Study the screenshot and document EVERYTHING you see:
 - Alignment (center, left, right, justify)
 - Hover effects visible in design
 
-### Step 3: Read ALL Documentation (MANDATORY)
+### Step 3: Ask User About Color Handling
+
+Before generating code, ASK the user:
+
+**"I can see the colors in your design. How would you like me to handle them?"**
+
+Use AskUserQuestion tool with these options:
+1. **"Use CSS Variables (Recommended)"** - Colors will use WordPress theme variables like `var(--wp--preset--color--primary)`, `var(--wp--preset--color--secondary)`. The design will automatically match the user's WordPress theme.
+2. **"Use Exact Colors from Screenshot"** - Colors will be hardcoded hex values extracted from the design (e.g., `#3B82F6`, `#1F2937`). Use this if the user wants pixel-perfect color matching.
+
+**Color Variable Mapping Guide:**
+| Design Element | CSS Variable |
+|----------------|--------------|
+| Primary buttons, accents | `var(--wp--preset--color--primary)` or `var(--wp--preset--color--brand)` |
+| Secondary buttons | `var(--wp--preset--color--secondary)` |
+| Dark text | `var(--wp--preset--color--text)` or `var(--wp--preset--color--heading)` |
+| Light/muted text | `var(--wp--preset--color--text-light)` |
+| Light backgrounds | `var(--wp--preset--color--lightbg)` |
+| Dark backgrounds | `var(--wp--preset--color--darkbg)` |
+| Borders | `var(--wp--preset--color--border)` |
+| White | `#ffffff` (ok to hardcode) |
+| Black | `#000000` (ok to hardcode) |
+
+### Step 4: Ask User About Animations
+
+ASK the user about animations:
+
+**"Would you like entrance animations on elements, or keep everything static?"**
+
+Use AskUserQuestion tool with these options:
+1. **"Static (No Animations)"** - Elements appear immediately, no entrance effects. Best for fast-loading, accessible pages.
+2. **"Subtle Animations (Recommended)"** - Gentle fade-up animations on scroll. Professional and modern.
+3. **"Full Animations"** - More dynamic entrance effects with staggered delays. More engaging but heavier.
+
+---
+
+## Animation Guidelines (When User Chooses Animations)
+
+### General Rules
+- **Always use `onlyonce: true`** - Entrance animations should play only once
+- **Keep durations short**: 300-800ms max (default: 800ms)
+- **Default easing**: `ease-out` for entrance animations (elements entering screen)
+- **Stagger delays**: 150-300ms between sequential elements
+
+### Available Easing in Greenshift
+
+**AOS Animations (simple entrance effects):**
+- `ease` - General purpose (default)
+- `ease-out` - Best for elements entering ✓
+- `ease-in-out` - For elements moving within screen
+- `linear` - Constant speed
+
+**CSS Keyframe Animations (for custom effects):**
+Can use `cubic-bezier()` for advanced easing:
+- `ease-out-cubic`: `cubic-bezier(.215, .61, .355, 1)` ✓ Recommended
+- `ease-out-quart`: `cubic-bezier(.165, .84, .44, 1)`
+- `ease-out-expo`: `cubic-bezier(.19, 1, .22, 1)`
+
+### Recommended Animation Patterns
+
+**Subtle (Option 2):**
+```json
+"animation": {"type": "fade-up", "duration": 600, "easing": "ease-out", "onlyonce": true}
+```
+
+**Full Animations (Option 3) - Staggered:**
+| Element | Type | Delay |
+|---------|------|-------|
+| Heading | `fade-up` or `clip-right` | 0ms |
+| Subheading | `fade-up` | 200ms |
+| Description | `fade-up` | 400ms |
+| Button | `fade-up` | 600ms |
+| Cards (grid) | `fade-up` | +150ms each |
+
+### Performance Rules
+- Prefer `opacity` and `transform` (scale, translate) - GPU accelerated
+- Avoid animating `width`, `height`, `top`, `left` - use transforms instead
+- Don't animate blur values above 20px
+- Maximum 1s duration for any animation
+
+### Accessibility
+- Users with `prefers-reduced-motion` will see reduced/no animations (handled by Greenshift)
+- Entrance animations help guide attention but shouldn't be overwhelming
+
+### DO NOT USE
+- `infinite` animations for content (only for decorative loaders)
+- Bouncy/spring effects (not available in Greenshift)
+- Very long animations (>1s)
+- `ease-in` for entrance (makes UI feel slow)
+
+---
+
+### Step 5: Read ALL Documentation (MANDATORY)
 
 You MUST read these files before generating code:
 
@@ -95,7 +187,7 @@ ${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/reference.md
 ${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/templates/
 ```
 
-### Step 4: Available Block Types Reference
+### Step 6: Available Block Types Reference
 
 Use these block types based on what you see in the design:
 
@@ -149,6 +241,14 @@ Use these block types based on what you see in the design:
 "tag": "svg",
 "icon": {"icon": {"svg": "<svg>...</svg>"}, "fill": "currentColor", "type": "svg"}
 ```
+**IMPORTANT SVG RULES:**
+- WordPress STRIPS stroke/fill attributes from outer `<svg>` element
+- For stroke-based icons (Lucide/Feather style), put stroke on `<path>` elements:
+```json
+"icon": {"icon": {"svg": "<svg viewBox=\"0 0 24 24\"><path d=\"...\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"none\"/></svg>"}, "fill": "currentColor", "type": "svg"}
+```
+- Control color via `styleAttributes.color` (inherits to currentColor)
+- For solid icons use `fill="currentColor"` in icon parameter
 
 *Border Radius (rounded corners):*
 ```json
@@ -249,7 +349,7 @@ For GSAP: `import gsap from "{{PLUGIN_URL}}/libs/motion/gsap.js";`
 }
 ```
 
-### Step 5: Generate Precise Block Code
+### Step 7: Generate Precise Block Code
 
 **CRITICAL RULES (MUST FOLLOW):**
 
@@ -267,8 +367,9 @@ For GSAP: `import gsap from "{{PLUGIN_URL}}/libs/motion/gsap.js";`
 5. **Images**:
    - Always `loading="lazy"`
    - Use `https://placehold.co/WxH` for placeholders
-   - Include `originalWidth` and `originalHeight` in JSON
-   - NO `width`/`height` HTML attributes
+   - Include `originalWidth` and `originalHeight` in JSON params
+   - Do NOT add `width`/`height` HTML attributes - WordPress adds them automatically from JSON params
+   - Example: `{"originalWidth": 600, "originalHeight": 400}` → WordPress outputs `width="600" height="400"`
 
 6. **Responsive values**: Arrays `["desktop", "tablet", "mobile_l", "mobile_p"]`
    - Single value `["10px"]` applies to all breakpoints
@@ -282,12 +383,15 @@ For GSAP: `import gsap from "{{PLUGIN_URL}}/libs/motion/gsap.js";`
 
 8. **Links**: Use `tag: "a"` with `href`, for external add `linkNewWindow: true`
 
-9. **AOS Animations**: Use `animation` object:
+9. **AOS Animations** (if user chose animations):
    ```json
-   "animation": {"type": "fade-up", "duration": 800, "delay": 200, "easing": "ease", "onlyonce": true}
+   "animation": {"type": "fade-up", "duration": 600, "delay": 0, "easing": "ease-out", "onlyonce": true}
    ```
-   Types: fade-up, fade-down, fade-left, fade-right, zoom-in, zoom-out, flip-up, slide-up
-   Renders as: `data-aos="fade-up" data-aos-duration="800" data-aos-delay="200"`
+   - Types: fade-up, fade-down, fade-left, fade-right, zoom-in, zoom-out, flip-up, slide-up, clip-right
+   - Duration: 300-800ms (shorter is better)
+   - Easing: `ease-out` for entrance (recommended)
+   - Always `onlyonce: true` for entrance animations
+   - Stagger delays: +150-200ms per element
 
 **LAYOUT HIERARCHY (MANDATORY):**
 ```
@@ -336,7 +440,7 @@ Border: xlarge > large > medium > small > mini > circle
 Transitions: motion > accent > smooth > mild > elegant > soft > creative > ease-in-out > ease
 ```
 
-### Step 6: Save Output
+### Step 8: Save Output
 
 1. Generate the complete HTML block code
 2. Ask user for output path/filename or suggest based on content (e.g., `hero-section.html`, `pricing-table.html`)
@@ -379,6 +483,9 @@ Before saving, verify:
 5. **Hardcoded values** - Use CSS variables instead
 6. **Same IDs** - Every single block needs unique ID
 7. **Wrong tag for buttons** - Use `a` tag, not `button` (unless in forms)
+8. **SVG stroke on wrong element** - Put stroke/fill on `<path>`, not `<svg>` (WordPress strips them from svg)
+9. **Adding width/height to img HTML** - Don't add, WordPress adds from originalWidth/originalHeight JSON
+10. **HTML comments for organization** - WordPress STRIPS all HTML comments - don't use them
 
 ## If Image Cannot Be Read
 
@@ -390,9 +497,11 @@ If the image path is invalid:
 ## Example Workflow
 
 1. User provides: `/gs:clone /path/to/screenshot.png`
-2. Read and analyze the image
-3. Read `ref/instructions.md` (full documentation)
-4. Read relevant docs based on what's in the design
-5. Generate block code following all rules
-6. Save to HTML file
-7. Confirm to user
+2. Read and analyze the image thoroughly
+3. Ask user: "CSS Variables or Exact Colors?"
+4. Ask user: "Static, Subtle, or Full Animations?"
+5. Read `ref/instructions.md` (full documentation)
+6. Read relevant docs based on what's in the design
+7. Generate block code following all rules + user preferences
+8. Save to HTML file
+9. Confirm to user

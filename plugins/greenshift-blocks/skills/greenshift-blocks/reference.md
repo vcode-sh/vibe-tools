@@ -33,9 +33,11 @@
 |-----------|------|-------------|
 | `src` | string | Image URL |
 | `alt` | string | Alt text |
-| `originalWidth` | number | Width in pixels |
-| `originalHeight` | number | Height in pixels |
+| `originalWidth` | number | Width in pixels (WP auto-adds to HTML) |
+| `originalHeight` | number | Height in pixels (WP auto-adds to HTML) |
 | `fetchpriority` | string | `"high"` for LCP |
+
+**Note:** Don't add `width`/`height` HTML attributes manually. WordPress adds them automatically from `originalWidth`/`originalHeight` JSON params.
 
 ### Video Parameters
 
@@ -75,6 +77,15 @@
   "type": "svg"
 }
 ```
+
+**IMPORTANT SVG RULES:**
+- WordPress STRIPS stroke/fill attributes from outer `<svg>` element
+- For stroke-based icons (Lucide/Feather), put stroke on `<path>` elements:
+```json
+"icon": {"icon": {"svg": "<svg viewBox=\"0 0 24 24\"><path d=\"...\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"none\"/></svg>"}, "fill": "currentColor", "type": "svg"}
+```
+- Control icon color via `styleAttributes.color` (inherits to currentColor)
+- For solid icons, use `fill="currentColor"` in icon parameter
 
 ## styleAttributes Properties
 
@@ -180,3 +191,16 @@ Example:
 ```json
 "paddingTop": ["var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dspacing\u002d\u002d60)"]
 ```
+
+## WordPress Auto-Modifications
+
+WordPress/Greenshift automatically modifies output:
+
+| What | Behavior |
+|------|----------|
+| `<img>` width/height | Added from `originalWidth`/`originalHeight` JSON |
+| `<svg>` stroke/fill | STRIPPED from outer `<svg>` (put on `<path>`) |
+| HTML comments | STRIPPED (don't use `<!-- comments -->`) |
+| JSON param order | Reordered (non-functional) |
+
+**Don't rely on HTML comments for organization - they will be removed.**

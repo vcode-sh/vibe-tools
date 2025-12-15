@@ -1,6 +1,6 @@
 {
   "name": "greenshift-blocks",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Generate WordPress Gutenberg blocks using Greenshift/GreenLight. Create sections, layouts, hero sections, galleries, and complete pages.",
   "author": {
     "name": "Vibe Code",
