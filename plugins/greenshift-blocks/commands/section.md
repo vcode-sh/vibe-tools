@@ -20,7 +20,15 @@ Generate a full WordPress Gutenberg section using Greenshift blocks.
 - Use CSS variables instead of hardcoded values
 - Add AOS animations where appropriate
 - Section should be responsive (breakpoints in styleAttributes)
-- Return ONLY HTML block code, no explanations
+
+## Output
+
+1. Generate the complete Greenshift block HTML code
+2. Ask user for filename or suggest one based on content (e.g., `section-about.html`)
+3. **SAVE the code to an HTML file** using the Write tool
+4. Confirm the file location to the user
+
+**IMPORTANT:** Always save output to a `.html` file. Never just display the code in chat.
 
 ## If no arguments provided
 

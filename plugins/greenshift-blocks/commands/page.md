@@ -68,4 +68,9 @@ $ARGUMENTS
 
 ## Output
 
-Return ONLY Greenshift block HTML code for the entire page.
+1. Generate the complete Greenshift block HTML code for all sections
+2. Ask user for filename or suggest one based on page type (e.g., `landing-page.html`, `about-page.html`)
+3. **SAVE the code to an HTML file** using the Write tool
+4. Confirm the file location to the user
+
+**IMPORTANT:** Always save output to a `.html` file. Never just display the code in chat.

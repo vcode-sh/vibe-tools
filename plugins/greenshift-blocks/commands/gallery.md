@@ -110,4 +110,9 @@ Section (alignfull)
 
 ## Output
 
-Return ONLY Greenshift block HTML code, using placeholder images.
+1. Generate the complete Greenshift block HTML code with placeholder images
+2. Ask user for filename or suggest one based on gallery type (e.g., `gallery-grid.html`, `gallery-slider.html`)
+3. **SAVE the code to an HTML file** using the Write tool
+4. Confirm the file location to the user
+
+**IMPORTANT:** Always save output to a `.html` file. Never just display the code in chat.

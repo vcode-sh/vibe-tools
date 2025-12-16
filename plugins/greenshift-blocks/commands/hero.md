@@ -41,4 +41,9 @@ Section (alignfull, background image/video)
 
 ## Output
 
-Return ONLY ready Greenshift block HTML code, no explanations.
+1. Generate the complete Greenshift block HTML code
+2. Ask user for filename or suggest one based on content (e.g., `hero-homepage.html`)
+3. **SAVE the code to an HTML file** using the Write tool
+4. Confirm the file location to the user
+
+**IMPORTANT:** Always save output to a `.html` file. Never just display the code in chat.

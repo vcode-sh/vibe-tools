@@ -101,4 +101,9 @@ Provide: $ARGUMENTS
 
 ## Output
 
-Return ONLY Greenshift block HTML code.
+1. Generate the complete Greenshift block HTML code
+2. Ask user for filename or suggest one based on element type (e.g., `button-primary.html`, `heading-hero.html`)
+3. **SAVE the code to an HTML file** using the Write tool
+4. Confirm the file location to the user
+
+**IMPORTANT:** Always save output to a `.html` file. Never just display the code in chat.

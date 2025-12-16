@@ -238,10 +238,18 @@ Section (alignfull, dark background)
 
 ## Output Requirements
 
-- Return ONLY Greenshift block HTML code
 - Include data-end attribute with ISO date format
 - Use "00" as initial textContent for all units
 - Each element needs unique ID (gsbp-XXXXXXX)
 - Include all four time units (days, hours, minutes, seconds)
 - Add dividers between units
 - Include dynamicGClasses for consistent styling
+
+## Output
+
+1. Generate the complete Greenshift countdown block HTML code
+2. Ask user for filename or suggest one based on event (e.g., `countdown-launch.html`)
+3. **SAVE the code to an HTML file** using the Write tool
+4. Confirm the file location to the user
+
+**IMPORTANT:** Always save output to a `.html` file. Never just display the code in chat.

@@ -274,9 +274,17 @@ When `responsive: "yes"` is set:
 
 ## Output Requirements
 
-- Return ONLY Greenshift block HTML code
 - Include tableAttributes and tableStyles
 - Each element needs unique ID (gsbp-XXXXXXX)
 - Use semantic th for headers, td for data
 - Include responsive setting
 - Default to 3x3 table if no size specified
+
+## Output
+
+1. Generate the complete Greenshift table block HTML code
+2. Ask user for filename or suggest one based on content (e.g., `table-pricing.html`, `table-comparison.html`)
+3. **SAVE the code to an HTML file** using the Write tool
+4. Confirm the file location to the user
+
+**IMPORTANT:** Always save output to a `.html` file. Never just display the code in chat.

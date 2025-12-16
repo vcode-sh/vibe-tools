@@ -118,8 +118,16 @@ Generate a collapsible accordion component for FAQ sections, expandable content,
 
 ## Output Requirements
 
-- Return ONLY Greenshift block HTML code
 - Include complete dynamicGClasses for styling
 - Each item must have unique IDs (gsbp-XXXXXXX)
 - Include proper ARIA attributes for accessibility
 - Default to 3 items if no number specified
+
+## Output
+
+1. Generate the complete Greenshift accordion block HTML code
+2. Ask user for filename or suggest one based on content (e.g., `accordion-faq.html`)
+3. **SAVE the code to an HTML file** using the Write tool
+4. Confirm the file location to the user
+
+**IMPORTANT:** Always save output to a `.html` file. Never just display the code in chat.

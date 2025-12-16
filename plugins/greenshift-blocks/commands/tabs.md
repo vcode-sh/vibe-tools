@@ -166,10 +166,18 @@ Include SVG icon before tab title span:
 
 ## Output Requirements
 
-- Return ONLY Greenshift block HTML code
 - Include complete dynamicGClasses for styling
 - First tab must have `.active` class
 - First panel must have `.active` class and `aria-hidden="false"`
 - Each element needs unique IDs (gsbp-XXXXXXX)
 - Include proper ARIA attributes for accessibility
 - Default to 3 tabs if no number specified
+
+## Output
+
+1. Generate the complete Greenshift tabs block HTML code
+2. Ask user for filename or suggest one based on content (e.g., `tabs-features.html`)
+3. **SAVE the code to an HTML file** using the Write tool
+4. Confirm the file location to the user
+
+**IMPORTANT:** Always save output to a `.html` file. Never just display the code in chat.

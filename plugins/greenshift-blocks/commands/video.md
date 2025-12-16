@@ -272,10 +272,18 @@ dynamicGClasses for animated pulse:
 
 ## Output Requirements
 
-- Return ONLY Greenshift block HTML code
 - Use appropriate isVariation for embed types
 - Include proper allow attributes for iframes
 - Each element needs unique ID (gsbp-XXXXXXX)
 - Include loading="lazy" for iframes
 - For lightbox, include interactionLayers and dynamicGClasses
 - Use placeholder thumbnail for lightbox if no image provided
+
+## Output
+
+1. Generate the complete Greenshift video block HTML code
+2. Ask user for filename or suggest one based on type (e.g., `video-hero.html`, `video-lightbox.html`)
+3. **SAVE the code to an HTML file** using the Write tool
+4. Confirm the file location to the user
+
+**IMPORTANT:** Always save output to a `.html` file. Never just display the code in chat.

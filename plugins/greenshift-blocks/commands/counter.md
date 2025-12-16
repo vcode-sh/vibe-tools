@@ -192,9 +192,17 @@ Section (alignfull)
 
 ## Output Requirements
 
-- Return ONLY Greenshift block HTML code
 - Include data-gs-counter attribute with proper JSON
 - Use textContent="0" as starting value
 - Each counter needs unique ID (gsbp-XXXXXXX)
 - Include proper responsive font sizes
 - Add animations (fade-up) to container if multiple counters
+
+## Output
+
+1. Generate the complete Greenshift counter block HTML code
+2. Ask user for filename or suggest one based on content (e.g., `counter-stats.html`)
+3. **SAVE the code to an HTML file** using the Write tool
+4. Confirm the file location to the user
+
+**IMPORTANT:** Always save output to a `.html` file. Never just display the code in chat.
