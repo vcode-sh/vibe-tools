@@ -26,8 +26,12 @@ Detailed documentation is split into modular files in the `docs/` directory:
 | `docs/08-variations.md` | Accordion, tabs, counter, countdown, etc. |
 | `docs/09-css-variables.md` | All CSS variables (fonts, spacing, shadows, etc.) |
 | `docs/10-scripts.md` | Custom JavaScript and GSAP integration |
+| `docs/11-charts.md` | ApexCharts integration |
+| `docs/12-migration-rules.md` | **CRITICAL** - Typography stripping, semantic headings, minimal styling |
 
 **Read relevant docs files when you need detailed information on specific topics.**
+
+**IMPORTANT:** Always read `docs/12-migration-rules.md` when migrating or cloning blocks - it contains critical rules about what styles to REMOVE.
 
 ---
 
@@ -79,34 +83,88 @@ Every Greenshift element follows this pattern:
 
 When generating or migrating blocks, apply **minimal styling intervention**. Let the WordPress theme handle defaults.
 
+**See `docs/12-migration-rules.md` for comprehensive migration-specific rules.**
+
 ### What NOT to Do
 
 | Avoid | Why |
 |-------|-----|
 | Adding `fontSize` to headings (h1-h6) | Theme typography handles heading sizes |
 | Adding `color` to headings/paragraphs | Theme colors cascade from settings |
-| Adding `fontWeight` to every text | Only set when explicitly different from normal |
-| Hardcoding pixel values (`24px`, `16px`) | Use CSS variables or omit entirely |
-| Setting `lineHeight` everywhere | Only when specifically needed |
-| Forcing margins/padding on everything | Only set when controlling specific spacing |
-| Using generic background colors | Use theme palette variables |
+| Adding `fontWeight` to headings | Theme defines heading weights |
+| Adding `fontWeight: ["400"]` anywhere | It's the default - remove it |
+| Adding `lineHeight` to headings | Theme handles heading line-heights |
+| Setting responsive fontSize on headings | Theme's heading styles are already responsive |
+| Using generic background colors | Use theme palette variables (palette-color-6, etc.) |
 
 ### Typography Rules (CRITICAL)
 
-**Headings (h1, h2, h3, h4, h5, h6):**
-- **NEVER** add `fontSize` - let theme handle heading hierarchy
-- **NEVER** add `color` - unless text is on dark/colored background
-- **ONLY** add `marginBottom` for spacing control when needed
+**Headings (h1, h2, h3, h4, h5, h6) - NEVER SET:**
+- `fontSize` - theme handles heading sizes (even responsive ones)
+- `fontWeight` - theme handles heading weights
+- `color` - theme handles text colors (unless on dark background)
+- `lineHeight` - theme handles heading line-heights
 
-**Paragraphs and text:**
-- **NEVER** add `color` - unless text is on dark/colored background
-- **fontSize** only when design explicitly requires non-default size
-- **lineHeight** only when design explicitly requires it
+**Headings - OKAY TO SET:**
+- `marginTop`, `marginBottom` - for spacing control
+- `textAlign` - for layout/centering
+
+**WRONG - Over-styled heading:**
+```json
+{
+  "tag": "h2",
+  "styleAttributes": {
+    "fontSize": ["3rem", "2.7rem"],
+    "fontWeight": ["700"],
+    "lineHeight": ["1.2"]
+  }
+}
+```
+
+**CORRECT - Minimal heading:**
+```json
+{
+  "tag": "h2",
+  "styleAttributes": {
+    "marginBottom": ["1rem"],
+    "textAlign": ["center"]
+  }
+}
+```
+
+**Paragraphs and text - NEVER SET:**
+- `color` - unless on dark/colored background
+- `fontWeight: ["400"]` or `fontWeight: ["normal"]` - these are defaults
+- `lineHeight` - unless custom fontSize requires adjustment
+
+**Paragraphs and text - OKAY TO SET:**
+- `fontSize` - ONLY for intentional accent/lead text (e.g., `["1.2rem"]`)
+- `fontFamily` - for specific font choices
+- `fontWeight: ["700"]` - for intentionally bold body text
+- `maxWidth` - for constraining text width
 
 **Exception - Text on dark backgrounds:**
 When text is over a dark background (hero overlays, dark sections, card overlays):
 - White text: `"color":["var(--wp--preset--color--white, #ffffff)"]`
 - Semi-transparent white: `"color":["rgba(255,255,255,0.9)"]`
+
+### Semantic Heading Hierarchy
+
+Use proper HTML heading levels based on content structure:
+
+```
+h1 - Page title (usually in theme header)
+h2 - Main section titles (one per section)
+h3 - Subsection/card titles
+h4 - Minor headings within cards/subsections
+```
+
+**Example - Step Cards:**
+- Section intro: `h2`
+- Grid/subsection title: `h3`
+- Individual step headings: `h4`
+
+**DON'T:** Use multiple h2s in same section or h3 for minor card headings.
 
 ### Background Colors - Use Theme Palette
 

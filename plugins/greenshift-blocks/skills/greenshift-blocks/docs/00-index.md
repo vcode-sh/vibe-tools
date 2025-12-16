@@ -16,6 +16,8 @@ This documentation is split into logical modules for easy reference. Each file c
 | 08 | [Block Variations](08-variations.md) | Accordion, tabs, counter, countdown, marquee, etc. |
 | 09 | [CSS Variables](09-css-variables.md) | Font sizes, spacing, shadows, transitions, colors |
 | 10 | [Scripts](10-scripts.md) | Custom JavaScript, GSAP integration |
+| 11 | [Charts](11-charts.md) | ApexCharts integration |
+| 12 | [Migration Rules](12-migration-rules.md) | Typography stripping, semantic headings, minimal intervention |
 
 ## How to Use
 

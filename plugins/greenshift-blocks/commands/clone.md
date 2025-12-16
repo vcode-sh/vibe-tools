@@ -11,23 +11,70 @@ Convert screenshots, website designs, or component images into production-ready 
 
 **Core principle:** Style only what's necessary. Let WordPress themes handle defaults.
 
+**IMPORTANT:** Read `docs/12-migration-rules.md` for detailed typography rules.
+
+### Typography Rules (CRITICAL)
+
+**NEVER set on headings (h1-h6):**
+- `fontSize` - theme handles heading sizes
+- `fontWeight` - theme handles heading weights
+- `color` - theme handles text colors (unless on dark background)
+- `lineHeight` - theme handles heading line-heights
+
+**NEVER set on body text:**
+- `fontWeight: ["400"]` - it's the default, don't set it
+- `color` - unless text is on dark/colored background
+
+**OKAY to set:**
+- `marginTop`, `marginBottom` - for spacing control
+- `textAlign` - for layout/centering
+- `fontSize` on accent/lead text (not headings) - e.g., `["1.2rem"]`
+- `fontFamily` - for specific font choices
+
+**Example - WRONG heading:**
+```json
+{"tag": "h2", "styleAttributes": {"fontSize": ["3rem"], "fontWeight": ["700"]}}
+```
+
+**Example - CORRECT heading:**
+```json
+{"tag": "h2", "styleAttributes": {"marginBottom": ["1rem"], "textAlign": ["center"]}}
+```
+
+### Semantic Heading Hierarchy
+
+Use proper HTML heading levels:
+```
+h1 - Page title (usually in theme header)
+h2 - Main section titles (one per section)
+h3 - Subsection/card titles
+h4 - Minor headings within cards
+```
+
 ### What to Style (intentionally):
 - **Structural** - flexbox layouts, positioning, display modes
-- **Spacing** - section padding, gaps between columns (using CSS variables)
-- **Visual accents** - colors/fonts that are clearly different from defaults
-- **Backgrounds** - when screenshot shows specific backgrounds
+- **Spacing** - section padding, gaps, margins (can use CSS variables or px)
+- **Backgrounds** - when screenshot shows specific backgrounds (use palette vars)
+- **Font families** - when design uses custom fonts
+- **Accent text sizes** - lead text, subtitles (not headings)
 
 ### What NOT to Style (let theme handle):
-- Default paragraph `fontSize`, `lineHeight`, `color`
-- Normal `fontWeight: 400` - don't set it explicitly
-- Body text colors - theme provides these
-- Standard link colors - unless clearly custom
+- Heading `fontSize`, `fontWeight`, `lineHeight`, `color`
+- Default body text styling
+- `fontWeight: ["400"]` anywhere - it's the default
 
-### Hardcoded vs CSS Variables
-- **Prefer CSS variables** for spacing: `var(--wp--preset--spacing--60)`
-- **Prefer CSS variables** for fonts: `var(--wp--preset--font-size--l)`
-- **Use hardcoded only** when CSS variable doesn't match design intent
-- **Don't over-normalize** - if design uses `24px`, that's fine
+### Background Colors - Use Palette Variables
+
+**CORRECT:**
+```json
+"backgroundColor": ["var(--wp--preset--color--palette-color-6, var(--theme-palette-color-6, #f5f5f4))"]
+```
+
+**WRONG:**
+```json
+"backgroundColor": ["#f8f8f8"]
+"backgroundColor": ["var(--wp--preset--color--light-grey, #f8f8f8)"]
+```
 
 ### Page Structure
 - **Always use Page Wrapper** for multi-section pages (controls gap issues)

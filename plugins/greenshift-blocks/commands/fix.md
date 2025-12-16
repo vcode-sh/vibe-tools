@@ -24,7 +24,10 @@ Before verification, read the core documentation:
 ${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/SKILL.md
 ${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/01-core-structure.md
 ${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/02-attributes.md
+${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/12-migration-rules.md
 ```
+
+**CRITICAL:** The migration-rules doc contains typography stripping rules that apply to verification.
 
 ### Step 3: Perform Comprehensive Verification
 
@@ -119,13 +122,29 @@ Analyze EVERY block in the code against these rules. Report ALL issues found.
 | I3 | Duration between 300-1000ms | Adjust value |
 | I4 | Stagger delays are incremental (0, 150, 300...) | Fix delays |
 
-### J. Minimal Styling (WARNING)
+### J. Typography & Minimal Styling (IMPORTANT)
 
 | Rule | Check | Fix |
 |------|-------|-----|
-| J1 | No unnecessary `fontSize` on body text | Remove if default |
-| J2 | No `fontWeight: 400` (it's default) | Remove |
-| J3 | Prefer CSS variables over hardcoded values | Suggest conversion |
+| J1 | **NO `fontSize` on headings (h1-h6)** | **REMOVE** - theme handles |
+| J2 | **NO `fontWeight` on headings (h1-h6)** | **REMOVE** - theme handles |
+| J3 | **NO `color` on headings/text** (unless dark bg) | **REMOVE** - theme handles |
+| J4 | No `fontWeight: ["400"]` anywhere | Remove - it's default |
+| J5 | No `lineHeight` on headings | Remove - theme handles |
+| J6 | Semantic heading hierarchy (h2→h3→h4) | Suggest fixes |
+| J7 | Background colors use palette vars | Convert to palette-color-X |
+
+**See `docs/12-migration-rules.md` for detailed typography rules.**
+
+### Typography Decision Guide
+
+**For headings (h1-h6):**
+- REMOVE: `fontSize`, `fontWeight`, `color`, `lineHeight`
+- KEEP: `marginTop`, `marginBottom`, `textAlign`
+
+**For body text:**
+- REMOVE: `fontWeight: ["400"]`, `color` (unless on dark bg)
+- KEEP: `fontSize` if intentional accent (e.g., `["1.2rem"]`), `fontFamily`
 
 ---
 
@@ -264,17 +283,30 @@ Apply all chosen fixes:
 
 After fixes, verify:
 
+**Structure & IDs:**
 - [ ] All IDs are unique and valid format
 - [ ] All `localId` match `id`
 - [ ] No inline style attributes
-- [ ] All images have `loading="lazy"` and dimensions
-- [ ] SVG properly encoded
-- [ ] Animations have `onlyonce: true`
-- [ ] No old block types remain
 - [ ] Structure is valid (section > content > elements)
 - [ ] No HTML comments (use `metadata:{"name":"..."}`)
+
+**Typography (CRITICAL):**
+- [ ] **NO `fontSize` on headings (h1-h6)**
+- [ ] **NO `fontWeight` on headings (h1-h6)**
+- [ ] **NO `color` on text** (unless on dark background)
+- [ ] **NO `fontWeight: ["400"]` anywhere**
+- [ ] Proper heading hierarchy (h2 → h3 → h4)
+
+**Images & Media:**
+- [ ] All images have `loading="lazy"` and dimensions
+- [ ] SVG properly encoded
 - [ ] Slider images use element blocks in `slider-content-zone`
 - [ ] Swipe blocks have `imageurl:""` and `bgContain:false`
+
+**Other:**
+- [ ] Animations have `onlyonce: true`
+- [ ] No old block types remain
+- [ ] Background colors use palette variables
 
 ---
 

@@ -22,22 +22,54 @@ You are an expert WordPress Gutenberg block developer specializing in the Greens
 
 **Core principle:** Style only what's necessary. Let WordPress themes handle defaults.
 
+**CRITICAL:** Read `docs/12-migration-rules.md` for comprehensive typography and styling rules.
+
 ### Typography Rules (CRITICAL)
 
-**Headings (h1-h6):**
-- **NEVER** add `fontSize` - theme handles heading hierarchy
-- **NEVER** add `color` - unless text is on dark/colored background
-- **ONLY** add `marginBottom` for spacing control when needed
+**Headings (h1-h6) - NEVER SET:**
+- `fontSize` - theme handles heading sizes (even responsive ones)
+- `fontWeight` - theme handles heading weights
+- `color` - theme handles text colors (unless on dark background)
+- `lineHeight` - theme handles heading line-heights
 
-**Paragraphs and text:**
-- **NEVER** add `color` - unless text is on dark/colored background
-- `fontSize` only when design explicitly requires non-default size
-- `lineHeight` only when design explicitly requires it
+**Headings - OKAY TO SET:**
+- `marginTop`, `marginBottom` - for spacing control
+- `textAlign` - for layout/centering
+
+**WRONG - Over-styled heading:**
+```json
+{"tag": "h2", "styleAttributes": {"fontSize": ["3rem"], "fontWeight": ["700"]}}
+```
+
+**CORRECT - Minimal heading:**
+```json
+{"tag": "h2", "styleAttributes": {"marginBottom": ["1rem"], "textAlign": ["center"]}}
+```
+
+**Paragraphs and text - NEVER SET:**
+- `color` - unless on dark/colored background
+- `fontWeight: ["400"]` - it's the default, don't set it
+- `lineHeight` - unless custom fontSize requires adjustment
+
+**Paragraphs and text - OKAY TO SET:**
+- `fontSize` - ONLY for intentional accent/lead text (e.g., `["1.2rem"]`)
+- `fontFamily` - for specific font choices
+- `fontWeight: ["700"]` - for intentionally bold body text
 
 **Exception - Text on dark backgrounds:**
 When text is over a dark background (hero overlays, dark sections, card overlays):
 - White text: `"color":["var(--wp--preset--color--white, #ffffff)"]`
 - Semi-transparent white: `"color":["rgba(255,255,255,0.9)"]`
+
+### Semantic Heading Hierarchy
+
+Use proper HTML heading levels:
+```
+h1 - Page title (usually in theme header)
+h2 - Main section titles (one per section)
+h3 - Subsection/card titles
+h4 - Minor headings within cards
+```
 
 ### Background Colors - Use Theme Palette
 
@@ -88,7 +120,12 @@ ${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/01-core-structure.md
 ${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/02-attributes.md
 ```
 
-**3. Read as needed based on task:**
+**3. ALWAYS read for typography rules:**
+```
+${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/12-migration-rules.md
+```
+
+**4. Read as needed based on task:**
 - Layouts: `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/03-layouts.md`
 - Styling/Parallax: `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/04-styling-advanced.md`
 - Animations: `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/05-animations.md`
@@ -97,7 +134,7 @@ ${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/02-attributes.md
 - Variations (Accordions, Tabs, etc.): `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/08-variations.md`
 - CSS Variables: `${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/docs/09-css-variables.md`
 
-**4. Templates for reference patterns:**
+**5. Templates for reference patterns:**
 ```
 ${CLAUDE_PLUGIN_ROOT}/skills/greenshift-blocks/templates/
 ```
@@ -253,6 +290,13 @@ Before saving output:
 - [ ] `class` includes `localId` when `styleAttributes` present
 - [ ] Section > Content Area > Elements hierarchy
 
+**Typography (CRITICAL):**
+- [ ] **NO `fontSize` on headings (h1-h6)**
+- [ ] **NO `fontWeight` on headings (h1-h6)**
+- [ ] **NO `color` on text** (unless on dark background)
+- [ ] **NO `fontWeight: ["400"]` anywhere**
+- [ ] Proper heading hierarchy (h2 → h3 → h4)
+
 **Images:**
 - [ ] Images have `loading="lazy"`
 - [ ] Images have `width` and `height` HTML attributes matching JSON params
@@ -263,6 +307,7 @@ Before saving output:
 **Styling:**
 - [ ] Minimal styling - only what's necessary
 - [ ] CSS variables used where appropriate
+- [ ] Background colors use palette variables (palette-color-X)
 - [ ] Responsive arrays for key dimensions
 
 ---

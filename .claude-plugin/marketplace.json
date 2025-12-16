@@ -13,7 +13,7 @@
       "name": "greenshift-blocks",
       "source": "./plugins/greenshift-blocks",
       "description": "Generate WordPress Gutenberg blocks using Greenshift/GreenLight plugin. Create sections, layouts, hero sections, galleries, complete pages, and migrate old blocks to modern GreenLight Element format.",
-      "version": "1.4.3",
+      "version": "1.5.0",
       "category": "wordpress",
       "tags": ["wordpress", "gutenberg", "greenshift", "blocks", "layouts"]
     }
