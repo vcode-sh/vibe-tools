@@ -237,20 +237,47 @@ To create a parallax scrolling effect, use `backgroundAttachment: ["fixed"]` in 
 
 ## Overlay
 
-For darkening/lightening backgrounds:
+### WARNING: Avoid the `overlay` parameter
+
+The `overlay` parameter generates **inline styles** which violates Greenshift best practices:
+
+```html
+<!-- BAD - generates inline style -->
+<div class="gspb_backgroundOverlay" style="background-color:#000000;opacity:0.4"></div>
+```
+
+### Recommended: Use CSS-based overlay
+
+Instead, create overlays using a positioned child element with `styleAttributes`:
+
+```html
+<!-- wp:greenshift-blocks/element {"id":"gsbp-section1","tag":"section","type":"inner","localId":"gsbp-section1","align":"full","styleAttributes":{"position":["relative"],"backgroundImage":["url(https://example.com/bg.jpg)"],"backgroundSize":["cover"]}} -->
+<section class="gsbp-section1 alignfull">
+  <!-- Overlay element -->
+  <!-- wp:greenshift-blocks/element {"id":"gsbp-overlay1","type":"no","localId":"gsbp-overlay1","styleAttributes":{"position":["absolute"],"top":["0"],"left":["0"],"right":["0"],"bottom":["0"],"backgroundColor":["rgba(0,0,0,0.5)"],"zIndex":["1"]}} -->
+  <div class="gsbp-overlay1"></div>
+  <!-- /wp:greenshift-blocks/element -->
+
+  <!-- Content on top -->
+  <!-- wp:greenshift-blocks/element {"id":"gsbp-content1","type":"inner","localId":"gsbp-content1","styleAttributes":{"position":["relative"],"zIndex":["2"]}} -->
+  <div class="gsbp-content1">
+    <!-- Your content here -->
+  </div>
+  <!-- /wp:greenshift-blocks/element -->
+</section>
+<!-- /wp:greenshift-blocks/element -->
+```
+
+### Alternative: Simple background with opacity
+
+For simpler cases, use `backgroundColor` with `rgba()`:
 
 ```json
 {
-  "overlay": {
-    "color": "#000000",
-    "opacity": 0.4
+  "styleAttributes": {
+    "backgroundColor": ["rgba(0, 0, 0, 0.5)"]
   }
 }
-```
-
-HTML output includes:
-```html
-<div class="gspb_backgroundOverlay" style="background-color:#000000;opacity:0.4"></div>
 ```
 
 ---

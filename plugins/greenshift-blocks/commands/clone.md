@@ -7,6 +7,32 @@ argument-hint: [image path or paste screenshot]
 
 Convert screenshots, website designs, or component images into production-ready WordPress Gutenberg blocks using Greenshift.
 
+## Styling Philosophy: Minimal & Intentional
+
+**Core principle:** Style only what's necessary. Let WordPress themes handle defaults.
+
+### What to Style (intentionally):
+- **Structural** - flexbox layouts, positioning, display modes
+- **Spacing** - section padding, gaps between columns (using CSS variables)
+- **Visual accents** - colors/fonts that are clearly different from defaults
+- **Backgrounds** - when screenshot shows specific backgrounds
+
+### What NOT to Style (let theme handle):
+- Default paragraph `fontSize`, `lineHeight`, `color`
+- Normal `fontWeight: 400` - don't set it explicitly
+- Body text colors - theme provides these
+- Standard link colors - unless clearly custom
+
+### Hardcoded vs CSS Variables
+- **Prefer CSS variables** for spacing: `var(--wp--preset--spacing--60)`
+- **Prefer CSS variables** for fonts: `var(--wp--preset--font-size--l)`
+- **Use hardcoded only** when CSS variable doesn't match design intent
+- **Don't over-normalize** - if design uses `24px`, that's fine
+
+### Page Structure
+- **Always use Page Wrapper** for multi-section pages (controls gap issues)
+- **Use `content-size`** not `wide-size` for content areas
+
 ## Instructions
 
 ### Step 1: Read the Image

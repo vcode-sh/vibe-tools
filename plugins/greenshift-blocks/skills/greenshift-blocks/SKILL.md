@@ -73,6 +73,79 @@ Every Greenshift element follows this pattern:
 
 ---
 
+## Minimal Intervention Philosophy
+
+### Core Principle: Less is More
+
+When generating or migrating blocks, apply **minimal styling intervention**. Let the WordPress theme handle defaults.
+
+### What NOT to Do
+
+| Avoid | Why |
+|-------|-----|
+| Adding `fontSize` when not needed | Theme provides defaults |
+| Adding `fontWeight` to every text | Only set when explicitly different from normal |
+| Adding `color` to every element | Theme colors should cascade |
+| Hardcoding pixel values (`24px`, `16px`) | Use CSS variables or omit entirely |
+| Setting `lineHeight` everywhere | Only when specifically needed |
+| Forcing margins/padding on everything | Only set when controlling specific spacing |
+
+### When TO Style
+
+- **Explicit design requirement** - screenshot shows specific styling
+- **Structural necessity** - flexbox layouts, positioning
+- **Theme override needed** - element needs to differ from theme default
+- **Spacing control** - gaps between sections, padding for containers
+
+### Hardcoded Values vs CSS Variables
+
+**WRONG - Over-styled:**
+```json
+{
+  "styleAttributes": {
+    "fontSize": ["16px"],
+    "fontWeight": ["400"],
+    "lineHeight": ["1.5"],
+    "color": ["#333333"],
+    "marginBottom": ["20px"]
+  }
+}
+```
+
+**CORRECT - Minimal:**
+```json
+{
+  "styleAttributes": {
+    "marginBottom": ["var(--wp--preset--spacing--50)"]
+  }
+}
+```
+Or even better - **no styleAttributes at all** if theme defaults are acceptable.
+
+### Column/Flexbox Spacing
+
+For column gaps, use CSS variables:
+```json
+{
+  "styleAttributes": {
+    "columnGap": ["var(--wp--preset--spacing--60, 2rem)"],
+    "rowGap": ["var(--wp--preset--spacing--60, 2rem)"]
+  }
+}
+```
+
+**AVOID** hardcoded gaps like `"columnGap": ["25px"]` unless specifically required.
+
+### Migration/Cloning Rule
+
+When migrating or cloning:
+1. **Preserve structure** - keep the layout working
+2. **Remove unnecessary styles** - strip redundant fontSize, fontWeight, color
+3. **Convert hardcoded to variables** - but only if the value is being kept
+4. **Don't add styles** - if original didn't have it, don't add it
+
+---
+
 ## Block Types Guide
 
 ### Always Use GreenLight Element
@@ -229,6 +302,30 @@ var(--wp--custom--transition--smooth, all 1s cubic-bezier(0.66,0,0.34,1))
 
 ## Common Patterns
 
+### Page Wrapper (for multi-section pages)
+
+**ALWAYS** wrap full pages in a single container. This is critical for controlling spacing.
+
+**Why Page Wrapper is essential:**
+- **Eliminates unwanted gaps** - WordPress/themes often add margins between blocks
+- **Unified control** - one place to manage page-level spacing
+- **Prevents theme interference** - overrides default block margins
+- **Consistent structure** - predictable behavior across themes
+
+```html
+<!-- wp:greenshift-blocks/element {"id":"gsbp-page001","type":"inner","localId":"gsbp-page001","align":"full","styleAttributes":{"marginBlockStart":["0px"]},"metadata":{"name":"Page Wrapper"}} -->
+<div class="gsbp-page001 alignfull">
+  <!-- All sections go here -->
+</div>
+<!-- /wp:greenshift-blocks/element -->
+```
+
+**Key points:**
+- `align:"full"` in JSON + `alignfull` in HTML class
+- `marginBlockStart:["0px"]` removes top margin forced by themes
+- All section wrappers go inside this container
+- Sections inside should NOT have extra top/bottom margins
+
 ### Full-Width Section Wrapper
 ```html
 <!-- wp:greenshift-blocks/element {"id":"gsbp-XXXXXXX","tag":"section","type":"inner","localId":"gsbp-XXXXXXX","align":"full","styleAttributes":{"display":["flex"],"justifyContent":["center"],"flexDirection":["column"],"alignItems":["center"],"paddingRight":["var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dspacing\u002d\u002dside, min(3vw, 20px))"],"paddingLeft":["var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dspacing\u002d\u002dside, min(3vw, 20px))"],"paddingTop":["var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dspacing\u002d\u002d80, 5rem)"],"paddingBottom":["var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dspacing\u002d\u002d80, 5rem)"],"marginBlockStart":["0px"]},"isVariation":"contentwrapper"} -->
@@ -239,8 +336,11 @@ var(--wp--custom--transition--smooth, all 1s cubic-bezier(0.66,0,0.34,1))
 ```
 
 ### Content Area (Centered Container)
+
+**IMPORTANT:** Use `content-size` (not `wide-size`) for content width:
+
 ```html
-<!-- wp:greenshift-blocks/element {"id":"gsbp-XXXXXXX","type":"inner","localId":"gsbp-XXXXXXX","styleAttributes":{"maxWidth":["100%"],"width":["var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002dglobal\u002d\u002dwide-size, 1200px)"]},"isVariation":"nocolumncontent","metadata":{"name":"Content Area"}} -->
+<!-- wp:greenshift-blocks/element {"id":"gsbp-XXXXXXX","type":"inner","localId":"gsbp-XXXXXXX","styleAttributes":{"maxWidth":["100%"],"width":["var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002dglobal\u002d\u002dcontent-size, 1290px)"]},"isVariation":"nocolumncontent","metadata":{"name":"Content Area"}} -->
 <div class="gsbp-XXXXXXX">
   <!-- Inner content -->
 </div>

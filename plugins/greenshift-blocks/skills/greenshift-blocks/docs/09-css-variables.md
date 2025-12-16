@@ -146,11 +146,16 @@ Always prefer CSS variables over hardcoded values for consistency and theme comp
 
 | Variable | Description |
 |----------|-------------|
-| `var(--wp--style--global--wide-size, 1200px)` | Wide content width |
-| `var(--wp--style--global--content-size, 800px)` | Content width |
+| `var(--wp--style--global--content-size, 1290px)` | **Preferred** - Main content width |
+| `var(--wp--style--global--wide-size, 1200px)` | Wide content width (use sparingly) |
 | `var(--wp--custom--spacing--side, min(3vw, 20px))` | Side padding |
 | `var(--wp--custom--spacing--top, 0px)` | Top padding |
 | `var(--wp--custom--spacing--bottom, 0px)` | Bottom padding |
+
+**IMPORTANT:** Use `content-size` (not `wide-size`) for content area widths:
+```json
+"width": ["var(--wp--style--global--content-size, 1290px)"]
+```
 
 ---
 
