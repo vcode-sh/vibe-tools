@@ -191,6 +191,16 @@ Used with `tag: "svg"` for SVG icons.
 - Used for SVG icons (`tag: "svg"`).
 - Contains an `icon` object with the SVG code (`svg`) or font icon class (`font`).
 - **Important**: Remove `xmlns` attributes from `<svg>` and `<path>` tags in final HTML output.
+- **CRITICAL - WordPress SVG Stripping**: WordPress STRIPS `stroke`, `fill`, and `fill="none"` attributes from the outer `<svg>` element. Put these attributes on `<path>` elements instead:
+
+```html
+<!-- WRONG - fill="none" on outer svg will be stripped -->
+<svg viewBox="0 0 24 24" fill="none" class="gsbp-xxx">
+
+<!-- CORRECT - attributes on path elements -->
+<svg viewBox="0 0 24 24" class="gsbp-xxx"><path d="..." stroke="currentColor" stroke-width="2" fill="none"/></svg>
+```
+
 - **CRITICAL**: SVG content inside the JSON `icon.icon.svg` parameter MUST use Unicode escape sequences:
 
 | Character | Escape Sequence |

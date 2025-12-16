@@ -2,6 +2,35 @@
 
 Slider blocks use `greenshift-blocks/swiper` and the Swiper.js library. Each slide works as a container and can include other blocks and background images. Slider blocks have extensive configuration options for creating galleries, hero sliders, carousels, and more.
 
+## CRITICAL: Image Gallery Slides
+
+**IMPORTANT:** For image gallery/carousel sliders, use `greenshift-blocks/element` with `tag:"img"` inside the `slider-content-zone`. Do NOT use direct `<img>` in `slider-image-wrapper`.
+
+**WRONG - Do NOT use:**
+```html
+<!-- wp:greenshift-blocks/swipe {"imageurl":"https://placehold.co/600x400","asImage":true,"id":"gsbp-xxx"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-xxx"><div class="slider-overlaybg"></div><div class="slider-image-wrapper"><img src="https://placehold.co/600x400" alt="" loading="lazy" width="100%" height="100%"/></div><div class="slider-content-zone"></div></div></div>
+<!-- /wp:greenshift-blocks/swipe -->
+```
+
+**CORRECT - Use this pattern:**
+```html
+<!-- wp:greenshift-blocks/swipe {"imageurl":"","bgContain":false,"id":"gsbp-xxx"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-xxx"><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-img001","tag":"img","localId":"gsbp-img001","src":"https://placehold.co/600x400","alt":"Image description"} -->
+<img src="https://placehold.co/600x400" alt="Image description" loading="lazy"/>
+<!-- /wp:greenshift-blocks/element --></div></div></div>
+<!-- /wp:greenshift-blocks/swipe -->
+```
+
+**Key differences:**
+- `imageurl` must be empty string `""`
+- Remove `slider-overlaybg` and `slider-image-wrapper` divs
+- Use `greenshift-blocks/element` with `tag:"img"` inside `slider-content-zone`
+- Do NOT use `width="100%" height="100%"` on img tags
+- Add `bgContain:false` to swipe JSON
+
+---
+
 ## Basic Structure
 
 ```html
@@ -20,20 +49,20 @@ The basic structure includes:
 
 ## Slide Structure (greenshift-blocks/swipe)
 
-Each slide uses `greenshift-blocks/swipe` and can contain background images and nested content blocks:
+Each slide uses `greenshift-blocks/swipe`. For image gallery slides, place images inside `slider-content-zone` using `greenshift-blocks/element`:
 
 ```html
-<!-- wp:greenshift-blocks/swipe {"imageurl":"https://placehold.co/600x400","imageid":14192,"imagealt":"","asImage":true,"id":"gsbp-316c7ed"} -->
-<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-316c7ed"><div class="slider-overlaybg"></div><div class="slider-image-wrapper"><img src="https://placehold.co/600x400" alt="" loading="lazy" class="wp-image-14192" width="100%" height="100%"/></div><div class="slider-content-zone"><!-- Content blocks here --></div></div></div>
+<!-- wp:greenshift-blocks/swipe {"imageurl":"","bgContain":false,"id":"gsbp-316c7ed"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-316c7ed"><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-2a80cc3","tag":"img","localId":"gsbp-2a80cc3","src":"https://placehold.co/600x400","alt":"Image description"} -->
+<img src="https://placehold.co/600x400" alt="Image description" loading="lazy"/>
+<!-- /wp:greenshift-blocks/element --></div></div></div>
 <!-- /wp:greenshift-blocks/swipe -->
 ```
 
 **Slide Structure Components:**
 - `swiper-slide` - Outer slide wrapper
 - `swiper-slide-inner` - Inner wrapper with unique ID
-- `slider-overlaybg` - Optional overlay for background images
-- `slider-image-wrapper` - Background image container
-- `slider-content-zone` - Container for nested content blocks
+- `slider-content-zone` - Container for nested content blocks (images, text, etc.)
 
 ---
 
@@ -100,93 +129,107 @@ Each slide uses `greenshift-blocks/swipe` and can contain background images and 
 
 ---
 
-## Complete Slider Example
+## Complete Image Gallery Slider Example
 
-Here's a complete slider with two slides containing background images and content:
+Here's a complete image gallery slider with correct structure:
 
 ```html
-<!-- wp:greenshift-blocks/swiper {"id":"gsbp-2867323"} -->
-<div class="wp-block-greenshift-blocks-swiper gs-swiper gspb_slider-id-gsbp-2867323" style="position:relative"><div class="gs-swiper-init" data-slidesperview="1" data-spacebetween="10" data-spacebetweenmd="10" data-spacebetweensm="10" data-spacebetweenxs="10" data-speed="400" data-loop="false" data-vertical="false" data-verticalheight="500px" data-autoheight="false" data-grabcursor="false" data-freemode="false" data-centered="false" data-autoplay="false" data-autodelay="4000" data-effect="" data-coverflowshadow="false"><div class="swiper"><div class="swiper-wrapper"><!-- wp:greenshift-blocks/swipe {"imageurl":"https://placehold.co/600x400","imageid":14192,"imagealt":"","asImage":true,"id":"gsbp-316c7ed"} -->
-<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-316c7ed"><div class="slider-overlaybg"></div><div class="slider-image-wrapper"><img src="https://placehold.co/600x400" alt="" loading="lazy" class="wp-image-14192" width="100%" height="100%"/></div><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-2a80cc3","textContent":"I am content of slider 1","localId":"gsbp-2a80cc3","isVariation":"divtext"} -->
-<div>I am content of slider 1</div>
+<!-- wp:greenshift-blocks/swiper {"id":"gsbp-gallery01","tabs":4,"slidesPerView":[4,null,null,null],"slidesPerGroup":[1],"backgroundGradient":null,"loop":true,"autoplay":true,"autoplayRestore":true,"disablePause":true,"autodelay":3000,"arrowsOnHover":true,"navpostopArray":["48%"],"bgContain":false,"navSize":[20,null,null,null],"navSpaceSize":[10,null,null,null],"scaleAmount":80,"navshadow":false,"bullets":false,"effect":"scale","overflow":true,"centered":true,"linearmode":true,"autoHeight":true} -->
+<div class="wp-block-greenshift-blocks-swiper gs-swiper gspb_slider-id-gsbp-gallery01" style="position:relative"><div class="gs-swiper-init" data-slidesperview="4" data-slidespergroup="1" data-spacebetween="10" data-spacebetweenmd="10" data-spacebetweensm="10" data-spacebetweenxs="10" data-speed="400" data-disablepause="true" data-loop="true" data-vertical="false" data-verticalheight="500px" data-autoheight="true" data-grabcursor="false" data-freemode="false" data-centered="true" data-autoplay="true" data-autodelay="3000" data-effect="scale" data-coverflowshadow="false" data-autoplayrestore="true"><div class="swiper"><div class="swiper-wrapper"><!-- wp:greenshift-blocks/swipe {"imageurl":"","bgContain":false,"id":"gsbp-slide01"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-slide01"><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-img01","tag":"img","localId":"gsbp-img01","src":"https://placehold.co/600x400","alt":"Gallery image 1"} -->
+<img src="https://placehold.co/600x400" alt="Gallery image 1" loading="lazy"/>
 <!-- /wp:greenshift-blocks/element --></div></div></div>
 <!-- /wp:greenshift-blocks/swipe -->
 
-<!-- wp:greenshift-blocks/swipe {"imageurl":"https://placehold.co/600x400","imagealt":"","imageid":13743,"asImage":true,"id":"gsbp-719fec0"} -->
-<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-719fec0"><div class="slider-overlaybg"></div><div class="slider-image-wrapper"><img src="https://placehold.co/600x400" alt="" loading="lazy" class="wp-image-13743" width="100%" height="100%"/></div><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-63e9af8","textContent":"I am content of Slider 2","localId":"gsbp-63e9af8","isVariation":"divtext"} -->
-<div>I am content of Slider 2</div>
+<!-- wp:greenshift-blocks/swipe {"imageurl":"","bgContain":false,"id":"gsbp-slide02"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-slide02"><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-img02","tag":"img","localId":"gsbp-img02","src":"https://placehold.co/600x400","alt":"Gallery image 2"} -->
+<img src="https://placehold.co/600x400" alt="Gallery image 2" loading="lazy"/>
+<!-- /wp:greenshift-blocks/element --></div></div></div>
+<!-- /wp:greenshift-blocks/swipe -->
+
+<!-- wp:greenshift-blocks/swipe {"imageurl":"","bgContain":false,"id":"gsbp-slide03"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-slide03"><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-img03","tag":"img","localId":"gsbp-img03","src":"https://placehold.co/600x400","alt":"Gallery image 3"} -->
+<img src="https://placehold.co/600x400" alt="Gallery image 3" loading="lazy"/>
+<!-- /wp:greenshift-blocks/element --></div></div></div>
+<!-- /wp:greenshift-blocks/swipe -->
+
+<!-- wp:greenshift-blocks/swipe {"imageurl":"","bgContain":false,"id":"gsbp-slide04"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-slide04"><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-img04","tag":"img","localId":"gsbp-img04","src":"https://placehold.co/600x400","alt":"Gallery image 4"} -->
+<img src="https://placehold.co/600x400" alt="Gallery image 4" loading="lazy"/>
 <!-- /wp:greenshift-blocks/element --></div></div></div>
 <!-- /wp:greenshift-blocks/swipe --></div></div><div class="swiper-pagination"></div><div class="swiper-button-prev"></div><div class="swiper-button-next"></div><div class="swiper-scrollbar"></div></div></div>
 <!-- /wp:greenshift-blocks/swiper -->
+```
+
+**Required JSON Parameters for Gallery Effect:**
+```json
+{
+  "slidesPerView": [4, null, null, null],
+  "slidesPerGroup": [1],
+  "backgroundGradient": null,
+  "autoplayRestore": true,
+  "disablePause": true,
+  "arrowsOnHover": true,
+  "navpostopArray": ["48%"],
+  "bgContain": false,
+  "navSize": [20, null, null, null],
+  "navSpaceSize": [10, null, null, null],
+  "scaleAmount": 80,
+  "navshadow": false,
+  "effect": "scale",
+  "overflow": true,
+  "linearmode": true,
+  "autoHeight": true
+}
 ```
 
 ---
 
 ## Additional Examples
 
-### Basic Image Gallery Slider
+### Simple Image Gallery Slider
 
-A responsive image gallery with navigation and pagination:
+A responsive image gallery with navigation and pagination (correct structure):
 
 ```html
-<!-- wp:greenshift-blocks/swiper {"id":"gsbp-gallery01","slidesPerView":[3,2,1,1],"spaceBetween":[20,15,10,10],"loop":true,"navigationarrows":true,"bullets":true} -->
-<div class="wp-block-greenshift-blocks-swiper gs-swiper gspb_slider-id-gsbp-gallery01" style="position:relative">
-  <div class="gs-swiper-init" data-slidesperview="3" data-slidesperviewmd="2" data-slidesperviewsm="1" data-slidesperviewxs="1" data-spacebetween="20" data-spacebetweenmd="15" data-spacebetweensm="10" data-spacebetweenxs="10" data-loop="true">
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        <!-- wp:greenshift-blocks/swipe {"imageurl":"https://placehold.co/600x400","imagealt":"Image 1","asImage":true,"id":"gsbp-sld01"} -->
-        <div class="swiper-slide">
-          <div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-sld01">
-            <div class="slider-image-wrapper">
-              <img src="https://placehold.co/600x400" alt="Image 1" loading="lazy"/>
-            </div>
-          </div>
-        </div>
-        <!-- /wp:greenshift-blocks/swipe -->
-        <!-- Additional slides... -->
-      </div>
-    </div>
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  </div>
-</div>
+<!-- wp:greenshift-blocks/swiper {"id":"gsbp-gallery02","tabs":3,"slidesPerView":[3,2,1,1],"spaceBetween":[20,15,10,10],"loop":true,"navigationarrows":true,"bullets":true} -->
+<div class="wp-block-greenshift-blocks-swiper gs-swiper gspb_slider-id-gsbp-gallery02" style="position:relative"><div class="gs-swiper-init" data-slidesperview="3" data-slidesperviewmd="2" data-slidesperviewsm="1" data-slidesperviewxs="1" data-spacebetween="20" data-spacebetweenmd="15" data-spacebetweensm="10" data-spacebetweenxs="10" data-loop="true"><div class="swiper"><div class="swiper-wrapper"><!-- wp:greenshift-blocks/swipe {"imageurl":"","bgContain":false,"id":"gsbp-sld01"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-sld01"><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-gimg01","tag":"img","localId":"gsbp-gimg01","src":"https://placehold.co/600x400","alt":"Image 1"} -->
+<img src="https://placehold.co/600x400" alt="Image 1" loading="lazy"/>
+<!-- /wp:greenshift-blocks/element --></div></div></div>
+<!-- /wp:greenshift-blocks/swipe -->
+
+<!-- wp:greenshift-blocks/swipe {"imageurl":"","bgContain":false,"id":"gsbp-sld02"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-sld02"><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-gimg02","tag":"img","localId":"gsbp-gimg02","src":"https://placehold.co/600x400","alt":"Image 2"} -->
+<img src="https://placehold.co/600x400" alt="Image 2" loading="lazy"/>
+<!-- /wp:greenshift-blocks/element --></div></div></div>
+<!-- /wp:greenshift-blocks/swipe -->
+
+<!-- wp:greenshift-blocks/swipe {"imageurl":"","bgContain":false,"id":"gsbp-sld03"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-sld03"><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-gimg03","tag":"img","localId":"gsbp-gimg03","src":"https://placehold.co/600x400","alt":"Image 3"} -->
+<img src="https://placehold.co/600x400" alt="Image 3" loading="lazy"/>
+<!-- /wp:greenshift-blocks/element --></div></div></div>
+<!-- /wp:greenshift-blocks/swipe --></div></div><div class="swiper-pagination"></div><div class="swiper-button-prev"></div><div class="swiper-button-next"></div><div class="swiper-scrollbar"></div></div></div>
 <!-- /wp:greenshift-blocks/swiper -->
 ```
 
-### Hero Slider with Content and Autoplay
+### Hero Slider with Content Overlay
 
-A full-width hero slider with content overlay and automatic transitions:
+A full-width hero slider with text content and automatic transitions. Note: For hero sliders with background images AND text overlay, you can use the background image approach with content in `slider-content-zone`:
 
 ```html
-<!-- wp:greenshift-blocks/swiper {"id":"gsbp-hero01","slidesPerView":[1,1,1,1],"loop":true,"autoplay":true,"autodelay":5000,"navigationarrows":true,"bullets":true} -->
-<div class="wp-block-greenshift-blocks-swiper gs-swiper gspb_slider-id-gsbp-hero01" style="position:relative">
-  <div class="gs-swiper-init" data-slidesperview="1" data-autoplay="true" data-autodelay="5000" data-loop="true">
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        <!-- wp:greenshift-blocks/swipe {"imageurl":"https://placehold.co/1920x1080","asImage":true,"id":"gsbp-herosl01"} -->
-        <div class="swiper-slide">
-          <div class="wp-block-greenshift-blocks-swipe swiper-slide-inner">
-            <div class="slider-overlaybg" style="background:rgba(0,0,0,0.4)"></div>
-            <div class="slider-image-wrapper">
-              <img src="https://placehold.co/1920x1080" alt="" loading="lazy"/>
-            </div>
-            <div class="slider-content-zone">
-              <!-- wp:greenshift-blocks/element {"id":"gsbp-herotext","textContent":"Slide Title","tag":"h2","localId":"gsbp-herotext","styleAttributes":{"color":["#fff"],"fontSize":["var(--wp--preset--font-size--giant)"]}} -->
-              <h2 class="gsbp-herotext">Slide Title</h2>
-              <!-- /wp:greenshift-blocks/element -->
-            </div>
-          </div>
-        </div>
-        <!-- /wp:greenshift-blocks/swipe -->
-        <!-- Additional slides... -->
-      </div>
-    </div>
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  </div>
-</div>
+<!-- wp:greenshift-blocks/swiper {"id":"gsbp-hero01","tabs":2,"slidesPerView":[1,1,1,1],"loop":true,"autoplay":true,"autodelay":5000,"navigationarrows":true,"bullets":true} -->
+<div class="wp-block-greenshift-blocks-swiper gs-swiper gspb_slider-id-gsbp-hero01" style="position:relative"><div class="gs-swiper-init" data-slidesperview="1" data-autoplay="true" data-autodelay="5000" data-loop="true"><div class="swiper"><div class="swiper-wrapper"><!-- wp:greenshift-blocks/swipe {"imageurl":"","bgContain":false,"id":"gsbp-herosl01"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-herosl01"><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-herobg01","type":"inner","localId":"gsbp-herobg01","styleAttributes":{"position":["relative"],"minHeight":["500px"],"display":["flex"],"alignItems":["center"],"justifyContent":["center"],"backgroundImage":["url(https://placehold.co/1920x1080)"],"backgroundSize":["cover"],"backgroundPosition":["center"]}} -->
+<div class="gsbp-herobg01"><!-- wp:greenshift-blocks/element {"id":"gsbp-overlay01","type":"inner","localId":"gsbp-overlay01","styleAttributes":{"position":["absolute"],"top":["0"],"left":["0"],"right":["0"],"bottom":["0"],"backgroundColor":["rgba(0,0,0,0.4)"]}} -->
+<div class="gsbp-overlay01"></div>
+<!-- /wp:greenshift-blocks/element -->
+
+<!-- wp:greenshift-blocks/element {"id":"gsbp-herotext01","textContent":"Slide Title","tag":"h2","localId":"gsbp-herotext01","styleAttributes":{"position":["relative"],"zIndex":["1"],"color":["#fff"],"fontSize":["var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dfont-size\u002d\u002dgiant)"],"textAlign":["center"]}} -->
+<h2 class="gsbp-herotext01">Slide Title</h2>
+<!-- /wp:greenshift-blocks/element --></div>
+<!-- /wp:greenshift-blocks/element --></div></div></div>
+<!-- /wp:greenshift-blocks/swipe --></div></div><div class="swiper-pagination"></div><div class="swiper-button-prev"></div><div class="swiper-button-next"></div><div class="swiper-scrollbar"></div></div></div>
 <!-- /wp:greenshift-blocks/swiper -->
 ```
 

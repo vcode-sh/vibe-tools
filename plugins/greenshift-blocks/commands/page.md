@@ -58,10 +58,30 @@ $ARGUMENTS
 5. Use consistent color palette (CSS variables)
 6. Ensure responsiveness for each section
 
+## Critical Requirements
+
+### Page Wrapper (REQUIRED)
+
+All pages MUST be wrapped in a single outer container element:
+
+```html
+<!-- wp:greenshift-blocks/element {"id":"gsbp-page001","type":"inner","localId":"gsbp-page001","align":"full","styleAttributes":{"marginBlockStart":["0px"]},"metadata":{"name":"Page Wrapper"}} -->
+<div class="gsbp-page001 alignfull">
+  <!-- All sections go here -->
+</div>
+<!-- /wp:greenshift-blocks/element -->
+```
+
+### No HTML Comments
+
+Do NOT use HTML comments like `<!-- HERO SECTION -->` - WordPress strips them.
+Use `metadata:{"name":"Hero Section"}` in the JSON instead.
+
 ## Best practices
 
-- Add `marginBlockStart: ["0px"]` to first section
-- Use `metadata: {"name": "Section Name"}` for easy navigation
+- **Page wrapper required** - Wrap ALL sections in one outer alignfull element
+- Add `marginBlockStart: ["0px"]` to page wrapper
+- Use `metadata: {"name": "Section Name"}` for organization (NOT HTML comments)
 - Apply consistent spacing between sections
 - Animations with increasing delay within sections
 - Alternate section backgrounds (white/light gray)

@@ -434,7 +434,9 @@ For blocks displaying WordPress data (posts, users, taxonomies):
 
 Use `greenshift-blocks/swiper` for image galleries and hero sliders.
 
-**See `docs/06-slider.md` for complete slider documentation.**
+**CRITICAL:** For image gallery slides, use `greenshift-blocks/element` with `tag:"img"` inside `slider-content-zone`. Do NOT put images directly in `slider-image-wrapper`.
+
+**See `docs/06-slider.md` for complete slider documentation and correct structure.**
 
 ---
 
@@ -468,11 +470,25 @@ Before generating output, verify these visual details from the reference design:
 
 ---
 
+## Output Validation Rules
+
+Before outputting Greenshift blocks, verify these critical rules:
+
+1. **No HTML comments** - Use `metadata:{"name":"..."}` instead of `<!-- Section Name -->`
+2. **Page wrapper required** - Multi-section pages MUST be wrapped in element with `align:"full"` and `<div class="... alignfull">`
+3. **Image dimensions** - When `originalWidth`/`originalHeight` in JSON, add matching `width`/`height` to HTML `<img>` tag
+4. **SVG attributes** - Don't include `fill="none"` on outer `<svg>` element (WordPress strips it - put on `<path>` elements)
+5. **Slider images** - Use `greenshift-blocks/element` blocks in `slider-content-zone`, NOT direct `<img>` in `slider-image-wrapper`
+6. **Slider swipe JSON** - Use `imageurl:""` (empty string), add `bgContain:false`
+
+---
+
 ## Output Requirements
 
 - Return **only** the generated block code
 - Block names: `wp:greenshift-blocks/element` (or specialized like `swiper`, `querygrid`)
 - No explanations or surrounding text
+- **No HTML comments** - WordPress strips them; use `metadata:{"name":"..."}` for organization
 - Ready to paste directly into WordPress Gutenberg code editor
 - Save output as `.html` files
 

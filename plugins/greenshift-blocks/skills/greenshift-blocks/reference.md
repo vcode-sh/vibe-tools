@@ -33,11 +33,17 @@
 |-----------|------|-------------|
 | `src` | string | Image URL |
 | `alt` | string | Alt text |
-| `originalWidth` | number | Width in pixels (WP auto-adds to HTML) |
-| `originalHeight` | number | Height in pixels (WP auto-adds to HTML) |
+| `originalWidth` | number | Width in pixels |
+| `originalHeight` | number | Height in pixels |
 | `fetchpriority` | string | `"high"` for LCP |
 
-**Note:** Don't add `width`/`height` HTML attributes manually. WordPress adds them automatically from `originalWidth`/`originalHeight` JSON params.
+**IMPORTANT:** When using `originalWidth` and `originalHeight` in JSON, you MUST also add matching `width` and `height` HTML attributes to the `<img>` tag. WordPress expects these to match.
+
+```html
+<!-- wp:greenshift-blocks/element {"id":"gsbp-img001","tag":"img","localId":"gsbp-img001","src":"https://placehold.co/800x600","alt":"Description","originalWidth":800,"originalHeight":600} -->
+<img class="gsbp-img001" src="https://placehold.co/800x600" alt="Description" width="800" height="600" loading="lazy"/>
+<!-- /wp:greenshift-blocks/element -->
+```
 
 ### Video Parameters
 
@@ -198,9 +204,99 @@ WordPress/Greenshift automatically modifies output:
 
 | What | Behavior |
 |------|----------|
-| `<img>` width/height | Added from `originalWidth`/`originalHeight` JSON |
+| `<img>` width/height | Must match `originalWidth`/`originalHeight` JSON |
 | `<svg>` stroke/fill | STRIPPED from outer `<svg>` (put on `<path>`) |
+| `<svg>` fill="none" | STRIPPED from outer `<svg>` element |
 | HTML comments | STRIPPED (don't use `<!-- comments -->`) |
 | JSON param order | Reordered (non-functional) |
 
-**Don't rely on HTML comments for organization - they will be removed.**
+**Don't rely on HTML comments for organization - they will be removed. Use `metadata:{"name":"Section Name"}` instead.**
+
+---
+
+## Slider Block Warnings (CRITICAL)
+
+### Image Gallery Slides - Correct Structure
+
+**WRONG - Do NOT use direct images in `slider-image-wrapper`:**
+```html
+<!-- wp:greenshift-blocks/swipe {"imageurl":"https://placehold.co/600x400","asImage":true,"id":"gsbp-xxx"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-xxx"><div class="slider-overlaybg"></div><div class="slider-image-wrapper"><img src="..." width="100%" height="100%"/></div><div class="slider-content-zone"></div></div></div>
+<!-- /wp:greenshift-blocks/swipe -->
+```
+
+**CORRECT - Use `greenshift-blocks/element` with `tag:"img"` in `slider-content-zone`:**
+```html
+<!-- wp:greenshift-blocks/swipe {"imageurl":"","bgContain":false,"id":"gsbp-xxx"} -->
+<div class="swiper-slide"><div class="wp-block-greenshift-blocks-swipe swiper-slide-inner gspb_sliderinner-id-gsbp-xxx"><div class="slider-content-zone"><!-- wp:greenshift-blocks/element {"id":"gsbp-img001","tag":"img","localId":"gsbp-img001","src":"https://placehold.co/600x400","alt":"Image description"} -->
+<img src="https://placehold.co/600x400" alt="Image description" loading="lazy"/>
+<!-- /wp:greenshift-blocks/element --></div></div></div>
+<!-- /wp:greenshift-blocks/swipe -->
+```
+
+### Key Slider Rules
+
+| Rule | Explanation |
+|------|-------------|
+| `imageurl` must be `""` | Empty string, not actual URL |
+| No `slider-overlaybg` div | Remove from HTML structure |
+| No `slider-image-wrapper` div | Remove from HTML structure |
+| Add `bgContain:false` to swipe JSON | Required parameter |
+| Use element block for images | `greenshift-blocks/element` with `tag:"img"` |
+| No `width="100%" height="100%"` | Don't use percentage dimensions on slide images |
+
+### Required Swiper JSON Parameters for Gallery Effect
+
+```json
+{
+  "slidesPerView": [4, null, null, null],
+  "slidesPerGroup": [1],
+  "backgroundGradient": null,
+  "autoplayRestore": true,
+  "disablePause": true,
+  "arrowsOnHover": true,
+  "navpostopArray": ["48%"],
+  "bgContain": false,
+  "navSize": [20, null, null, null],
+  "navSpaceSize": [10, null, null, null],
+  "scaleAmount": 80,
+  "navshadow": false,
+  "effect": "scale",
+  "overflow": true,
+  "linearmode": true,
+  "autoHeight": true
+}
+```
+
+---
+
+## Page Structure Requirements
+
+### Page Wrapper (Required for Multi-Section Pages)
+
+All multi-section pages MUST be wrapped in a single outer container:
+
+```html
+<!-- wp:greenshift-blocks/element {"id":"gsbp-page001","type":"inner","localId":"gsbp-page001","align":"full","styleAttributes":{"marginBlockStart":["0px"]},"metadata":{"name":"Page Wrapper"}} -->
+<div class="gsbp-page001 alignfull">
+  <!-- All sections go here -->
+</div>
+<!-- /wp:greenshift-blocks/element -->
+```
+
+**Why this matters:**
+- Eliminates unwanted gaps between sections
+- Prevents theme interference with block margins
+- Provides unified spacing control
+
+### Section Naming (Instead of HTML Comments)
+
+**WRONG:**
+```html
+<!-- HERO SECTION -->
+<!-- wp:greenshift-blocks/element ... -->
+```
+
+**CORRECT:**
+```html
+<!-- wp:greenshift-blocks/element {"id":"gsbp-hero01","metadata":{"name":"Hero Section"}...} -->
