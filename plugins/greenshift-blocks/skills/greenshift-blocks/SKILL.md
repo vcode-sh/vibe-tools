@@ -19,7 +19,7 @@ Detailed documentation is split into modular files in the `docs/` directory:
 | `docs/01-core-structure.md` | Block format, JSON parameters, content types, styleAttributes |
 | `docs/02-attributes.md` | HTML attributes, links, images, forms, icons |
 | `docs/03-layouts.md` | Sections, columns, flexbox configurations |
-| `docs/04-styling-advanced.md` | Local classes (dynamicGClasses), gradients |
+| `docs/04-styling-advanced.md` | Local classes (dynamicGClasses), gradients, background images, parallax |
 | `docs/05-animations.md` | AOS animations, CSS keyframes, scroll animations |
 | `docs/06-slider.md` | Swiper slider block configuration |
 | `docs/07-dynamic-content.md` | Dynamic text, query grids, placeholders |
@@ -70,6 +70,54 @@ Every Greenshift element follows this pattern:
 6. **Links**: `linkNewWindow: true` = `target="_blank"` + auto `rel="noopener"`
 
 **See `docs/01-core-structure.md` and `docs/02-attributes.md` for full details.**
+
+---
+
+## Block Types Guide
+
+### Always Use GreenLight Element
+
+Always use `greenshift-blocks/element` for most content. Convert old blocks to GreenLight Element:
+
+| Old Block (AVOID) | Replace With |
+|-------------------|--------------|
+| `greenshift-blocks/row` | `greenshift-blocks/element` with `tag:"section"`, `align:"full"` |
+| `greenshift-blocks/row-column` | `greenshift-blocks/element` with `type:"inner"` or remove entirely |
+| `greenshift-blocks/heading` | `greenshift-blocks/element` with `tag:"h1/h2/h3"`, `textContent` |
+
+### Specialized Blocks (OK to use)
+
+These specialized blocks are acceptable:
+
+- `greenshift-blocks/element` - GreenLight Element (primary block)
+- `greenshift-blocks/swiper` - Slider/carousel
+- `greenshift-blocks/querygrid` - Query loop for posts
+- `greenshift-blocks/dynamic-post-image` - Dynamic featured image
+- `greenshift-blocks/dynamic-post-title` - Dynamic post title
+- `greenshift-blocks/meta` - Post meta data
+
+### Heading Conversion Example
+
+**WRONG (old `greenshift-blocks/heading`):**
+```html
+<!-- wp:greenshift-blocks/heading {"id":"gsbp-xxx","headingContent":"Title","spacing":{...},"typography":{...}} -->
+<h2 id="gspb_heading-id-gsbp-xxx" class="gspb_heading gspb_heading-id-gsbp-xxx">Title</h2>
+<!-- /wp:greenshift-blocks/heading -->
+```
+
+**CORRECT (GreenLight Element):**
+```html
+<!-- wp:greenshift-blocks/element {"id":"gsbp-xxx","textContent":"Title","tag":"h2","localId":"gsbp-xxx","styleAttributes":{"fontSize":["var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dfont-size\u002d\u002dgrand)"],"textAlign":["center"]}} -->
+<h2 class="gsbp-xxx">Title</h2>
+<!-- /wp:greenshift-blocks/element -->
+```
+
+**Key differences:**
+- Use `textContent` instead of `headingContent`
+- Use `tag:"h2"` instead of default div
+- Styles go in `styleAttributes` not `typography`/`spacing`
+- Class is `gsbp-xxx` not `gspb_heading gspb_heading-id-gsbp-xxx`
+- No `id` attribute in HTML, only `class`
 
 ---
 

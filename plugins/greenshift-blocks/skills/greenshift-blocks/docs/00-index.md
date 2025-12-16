@@ -9,7 +9,7 @@ This documentation is split into logical modules for easy reference. Each file c
 | 01 | [Core Structure](01-core-structure.md) | Block format, JSON parameters, content types, styleAttributes basics |
 | 02 | [HTML Attributes](02-attributes.md) | Links, images, forms, dynamic attributes, icons |
 | 03 | [Layouts](03-layouts.md) | Sections, columns, flexbox, content areas |
-| 04 | [Advanced Styling](04-styling-advanced.md) | Local classes, gradients, pseudo-selectors |
+| 04 | [Advanced Styling](04-styling-advanced.md) | Local classes, gradients, background images, parallax |
 | 05 | [Animations](05-animations.md) | AOS animations, keyframes, scroll animations |
 | 06 | [Slider Blocks](06-slider.md) | Swiper configuration, slides, navigation |
 | 07 | [Dynamic Content](07-dynamic-content.md) | Dynamic text, query grid, post data, taxonomies |

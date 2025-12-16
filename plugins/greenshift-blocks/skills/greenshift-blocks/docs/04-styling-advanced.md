@@ -176,6 +176,8 @@ linear-gradient(angle, color stop%, color stop%, ...)
 
 ## Background Image
 
+Use `styleAttributes` for all background image configurations. **Do NOT use the old `background` parameter.**
+
 ```json
 {
   "styleAttributes": {
@@ -186,6 +188,50 @@ linear-gradient(angle, color stop%, color stop%, ...)
   }
 }
 ```
+
+### Background Properties Reference
+
+| Property | Values | Description |
+|----------|--------|-------------|
+| `backgroundImage` | `["url(...)"]` | Image URL wrapped in `url()` function |
+| `backgroundRepeat` | `["repeat"]`, `["no-repeat"]`, `["repeat-x"]`, `["repeat-y"]` | How background repeats |
+| `backgroundSize` | `["cover"]`, `["contain"]`, `["200px"]`, `["100% auto"]` | Background size |
+| `backgroundAttachment` | `["fixed"]`, `["scroll"]`, `["local"]` | `fixed` = parallax effect |
+| `backgroundPosition` | `["center center"]`, `["top left"]`, etc. | Background position |
+
+---
+
+## Background with Parallax Effect
+
+To create a parallax scrolling effect, use `backgroundAttachment: ["fixed"]` in `styleAttributes`:
+
+```json
+{
+  "styleAttributes": {
+    "backgroundImage": ["url(https://example.com/bg.webp)"],
+    "backgroundRepeat": ["repeat"],
+    "backgroundSize": ["200px"],
+    "backgroundAttachment": ["fixed"]
+  }
+}
+```
+
+### Full Section with Parallax Background
+
+```html
+<!-- wp:greenshift-blocks/element {"id":"gsbp-parallax1","tag":"section","type":"inner","localId":"gsbp-parallax1","align":"full","styleAttributes":{"display":["flex"],"justifyContent":["center"],"flexDirection":["column"],"alignItems":["center"],"paddingRight":["var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dspacing\u002d\u002dside, min(3vw, 20px))"],"paddingLeft":["var(\u002d\u002dwp\u002d\u002dcustom\u002d\u002dspacing\u002d\u002dside, min(3vw, 20px))"],"paddingTop":["var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dspacing\u002d\u002d80, 5rem)"],"paddingBottom":["var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dspacing\u002d\u002d80, 5rem)"],"marginBlockStart":["0px"],"backgroundImage":["url(https://example.com/pattern.webp)"],"backgroundRepeat":["repeat"],"backgroundSize":["200px"],"backgroundAttachment":["fixed"]},"isVariation":"contentwrapper"} -->
+<section class="gsbp-parallax1 alignfull">
+  <!-- Content Area -->
+</section>
+<!-- /wp:greenshift-blocks/element -->
+```
+
+### Important Notes
+
+- **DO NOT** use the old `background` parameter with `parallax: true`
+- Always use `styleAttributes` for background configuration
+- `backgroundAttachment: ["fixed"]` creates the parallax effect
+- Works best with repeating patterns or large cover images
 
 ---
 
