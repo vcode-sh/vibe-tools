@@ -4,7 +4,8 @@
 ._*
 .Spotlight-V100
 .Trashes
-.ref/** */
+.ref/**
+.ref/
 
 # Claude AI files
 **/claude.md
