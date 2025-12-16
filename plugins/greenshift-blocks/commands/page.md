@@ -77,6 +77,38 @@ All pages MUST be wrapped in a single outer container element:
 Do NOT use HTML comments like `<!-- HERO SECTION -->` - WordPress strips them.
 Use `metadata:{"name":"Hero Section"}` in the JSON instead.
 
+## Critical Styling Rules
+
+### Typography - Minimal Intervention
+
+**Headings (h1-h6):**
+- **NO fontSize** - theme handles heading hierarchy
+- **NO color** - unless text is on dark background (hero overlays, dark sections)
+- **ONLY** `marginBottom` for spacing when needed
+
+**Paragraphs:**
+- **NO color** - unless on dark background
+- **fontSize** only for specific non-default sizes (intro text, small captions)
+
+**Exception - Text on dark backgrounds:**
+- White text: `"color":["var(--wp--preset--color--white, #ffffff)"]`
+- Semi-transparent: `"color":["rgba(255,255,255,0.9)"]`
+
+### Background Colors - Use Theme Palette
+
+**WRONG:**
+```json
+"backgroundColor": ["var(--wp--preset--color--white, #ffffff)"]
+"backgroundColor": ["var(--wp--preset--color--light-grey, #f8f8f8)"]
+```
+
+**CORRECT - alternating sections:**
+```json
+"backgroundColor": ["var(--wp--preset--color--palette-color-8, var(--theme-palette-color-8, #fffffe))"]
+"backgroundColor": ["var(--wp--preset--color--palette-color-7, var(--theme-palette-color-7, #fafaf9))"]
+"backgroundColor": ["var(--wp--preset--color--palette-color-6, var(--theme-palette-color-6, #f5f5f4))"]
+```
+
 ## Best practices
 
 - **Page wrapper required** - Wrap ALL sections in one outer alignfull element
@@ -84,7 +116,7 @@ Use `metadata:{"name":"Hero Section"}` in the JSON instead.
 - Use `metadata: {"name": "Section Name"}` for organization (NOT HTML comments)
 - Apply consistent spacing between sections
 - Animations with increasing delay within sections
-- Alternate section backgrounds (white/light gray)
+- **Alternate section backgrounds using palette colors** (palette-color-7/8)
 
 ## Output
 

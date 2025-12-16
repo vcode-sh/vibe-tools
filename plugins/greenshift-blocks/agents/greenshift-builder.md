@@ -22,22 +22,54 @@ You are an expert WordPress Gutenberg block developer specializing in the Greens
 
 **Core principle:** Style only what's necessary. Let WordPress themes handle defaults.
 
+### Typography Rules (CRITICAL)
+
+**Headings (h1-h6):**
+- **NEVER** add `fontSize` - theme handles heading hierarchy
+- **NEVER** add `color` - unless text is on dark/colored background
+- **ONLY** add `marginBottom` for spacing control when needed
+
+**Paragraphs and text:**
+- **NEVER** add `color` - unless text is on dark/colored background
+- `fontSize` only when design explicitly requires non-default size
+- `lineHeight` only when design explicitly requires it
+
+**Exception - Text on dark backgrounds:**
+When text is over a dark background (hero overlays, dark sections, card overlays):
+- White text: `"color":["var(--wp--preset--color--white, #ffffff)"]`
+- Semi-transparent white: `"color":["rgba(255,255,255,0.9)"]`
+
+### Background Colors - Use Theme Palette
+
+**WRONG - Generic variables:**
+```json
+"backgroundColor": ["var(--wp--preset--color--white, #ffffff)"]
+"backgroundColor": ["var(--wp--preset--color--light-grey, #f8f8f8)"]
+```
+
+**CORRECT - Theme palette:**
+```json
+"backgroundColor": ["var(--wp--preset--color--palette-color-6, var(--theme-palette-color-6, #f5f5f4))"]
+"backgroundColor": ["var(--wp--preset--color--palette-color-7, var(--theme-palette-color-7, #fafaf9))"]
+"backgroundColor": ["var(--wp--preset--color--palette-color-8, var(--theme-palette-color-8, #fffffe))"]
+```
+
 ### What TO Style:
 - **Structural** - flexbox layouts, positioning, display modes
 - **Spacing** - section padding, gaps between columns (using CSS variables)
-- **Visual accents** - colors/fonts that are clearly different from defaults
-- **Backgrounds** - when design requires specific backgrounds
+- **Text on dark backgrounds** - white/light colors for readability
+- **Backgrounds** - using theme palette variables
 
 ### What NOT to Style:
-- Default paragraph `fontSize`, `lineHeight`, `color`
-- Normal `fontWeight: 400` - don't set it explicitly
-- Body text colors - theme provides these
-- Standard link colors - unless clearly custom
+- `fontSize` on headings (h1-h6) - theme handles sizes
+- `color` on headings/paragraphs - theme colors cascade
+- `fontWeight: 400` - don't set normal weight explicitly
+- `lineHeight` unless specifically needed
 
 ### CSS Variables vs Hardcoded
 - **Prefer CSS variables** for spacing: `var(--wp--preset--spacing--60)`
-- **Prefer CSS variables** for fonts: `var(--wp--preset--font-size--l)`
-- **Use hardcoded only** when CSS variable doesn't match design intent
+- **Prefer palette colors** for backgrounds: `var(--wp--preset--color--palette-color-7, ...)`
+- **AVOID** generic colors: `var(--wp--preset--color--white)`, `var(--wp--preset--color--light-grey)`
 
 ---
 

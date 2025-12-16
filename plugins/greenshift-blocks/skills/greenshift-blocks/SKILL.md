@@ -83,19 +83,54 @@ When generating or migrating blocks, apply **minimal styling intervention**. Let
 
 | Avoid | Why |
 |-------|-----|
-| Adding `fontSize` when not needed | Theme provides defaults |
+| Adding `fontSize` to headings (h1-h6) | Theme typography handles heading sizes |
+| Adding `color` to headings/paragraphs | Theme colors cascade from settings |
 | Adding `fontWeight` to every text | Only set when explicitly different from normal |
-| Adding `color` to every element | Theme colors should cascade |
 | Hardcoding pixel values (`24px`, `16px`) | Use CSS variables or omit entirely |
 | Setting `lineHeight` everywhere | Only when specifically needed |
 | Forcing margins/padding on everything | Only set when controlling specific spacing |
+| Using generic background colors | Use theme palette variables |
+
+### Typography Rules (CRITICAL)
+
+**Headings (h1, h2, h3, h4, h5, h6):**
+- **NEVER** add `fontSize` - let theme handle heading hierarchy
+- **NEVER** add `color` - unless text is on dark/colored background
+- **ONLY** add `marginBottom` for spacing control when needed
+
+**Paragraphs and text:**
+- **NEVER** add `color` - unless text is on dark/colored background
+- **fontSize** only when design explicitly requires non-default size
+- **lineHeight** only when design explicitly requires it
+
+**Exception - Text on dark backgrounds:**
+When text is over a dark background (hero overlays, dark sections, card overlays):
+- White text: `"color":["var(--wp--preset--color--white, #ffffff)"]`
+- Semi-transparent white: `"color":["rgba(255,255,255,0.9)"]`
+
+### Background Colors - Use Theme Palette
+
+**WRONG - Generic variables:**
+```json
+"backgroundColor": ["var(--wp--preset--color--white, #ffffff)"]
+"backgroundColor": ["var(--wp--preset--color--light-grey, #f8f8f8)"]
+```
+
+**CORRECT - Theme palette:**
+```json
+"backgroundColor": ["var(--wp--preset--color--palette-color-6, var(--theme-palette-color-6, #f5f5f4))"]
+"backgroundColor": ["var(--wp--preset--color--palette-color-7, var(--theme-palette-color-7, #fafaf9))"]
+"backgroundColor": ["var(--wp--preset--color--palette-color-8, var(--theme-palette-color-8, #fffffe))"]
+```
+
+Palette colors (6, 7, 8) adapt to user's theme settings. Generic colors override theme customization.
 
 ### When TO Style
 
-- **Explicit design requirement** - screenshot shows specific styling
+- **Text on dark backgrounds** - white/light colors needed for readability
 - **Structural necessity** - flexbox layouts, positioning
-- **Theme override needed** - element needs to differ from theme default
-- **Spacing control** - gaps between sections, padding for containers
+- **Spacing control** - gaps between sections, margins for element separation
+- **Explicit design override** - screenshot shows specific non-default styling
 
 ### Hardcoded Values vs CSS Variables
 
@@ -178,9 +213,9 @@ These specialized blocks are acceptable:
 <!-- /wp:greenshift-blocks/heading -->
 ```
 
-**CORRECT (GreenLight Element):**
+**CORRECT (GreenLight Element - minimal):**
 ```html
-<!-- wp:greenshift-blocks/element {"id":"gsbp-xxx","textContent":"Title","tag":"h2","localId":"gsbp-xxx","styleAttributes":{"fontSize":["var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dfont-size\u002d\u002dgrand)"],"textAlign":["center"]}} -->
+<!-- wp:greenshift-blocks/element {"id":"gsbp-xxx","textContent":"Title","tag":"h2","localId":"gsbp-xxx","styleAttributes":{"marginBottom":["var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dspacing\u002d\u002d50, 1.5rem)"]}} -->
 <h2 class="gsbp-xxx">Title</h2>
 <!-- /wp:greenshift-blocks/element -->
 ```
@@ -188,7 +223,9 @@ These specialized blocks are acceptable:
 **Key differences:**
 - Use `textContent` instead of `headingContent`
 - Use `tag:"h2"` instead of default div
-- Styles go in `styleAttributes` not `typography`/`spacing`
+- **NO fontSize** - theme handles heading sizes
+- **NO color** - theme handles text colors
+- Only add `marginBottom` if spacing control needed
 - Class is `gsbp-xxx` not `gspb_heading gspb_heading-id-gsbp-xxx`
 - No `id` attribute in HTML, only `class`
 
@@ -361,10 +398,12 @@ var(--wp--custom--transition--smooth, all 1s cubic-bezier(0.66,0,0.34,1))
 
 ### Heading with Animation
 ```html
-<!-- wp:greenshift-blocks/element {"id":"gsbp-XXXXXXX","textContent":"Your Heading","tag":"h2","animation":{"duration":800,"easing":"ease","type":"fade-up","onlyonce":true},"localId":"gsbp-XXXXXXX","styleAttributes":{"fontSize":["var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dfont-size\u002d\u002dgrand, 2.8rem)"],"marginBottom":["var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dspacing\u002d\u002d50, 1.5rem)"]}} -->
+<!-- wp:greenshift-blocks/element {"id":"gsbp-XXXXXXX","textContent":"Your Heading","tag":"h2","animation":{"duration":800,"easing":"ease","type":"fade-up","onlyonce":true},"localId":"gsbp-XXXXXXX","styleAttributes":{"marginBottom":["var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dspacing\u002d\u002d50, 1.5rem)"]}} -->
 <h2 data-aos="fade-up" data-aos-easing="ease" data-aos-duration="800" data-aos-once="true" class="gsbp-XXXXXXX">Your Heading</h2>
 <!-- /wp:greenshift-blocks/element -->
 ```
+
+**Note:** No `fontSize` or `color` on heading - theme handles typography. Only `marginBottom` for spacing.
 
 **See `docs/05-animations.md` for all animation options.**
 

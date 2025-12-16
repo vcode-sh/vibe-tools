@@ -21,6 +21,23 @@ Generate a full WordPress Gutenberg section using Greenshift blocks.
 - Add AOS animations where appropriate
 - Section should be responsive (breakpoints in styleAttributes)
 
+## Critical Styling Rules
+
+**Typography (IMPORTANT):**
+- **NO fontSize on headings (h1-h6)** - theme handles heading sizes
+- **NO color on headings/paragraphs** - unless text is on dark background
+- Only add `marginBottom` for spacing control
+
+**Background colors - use theme palette:**
+```json
+"backgroundColor": ["var(--wp--preset--color--palette-color-7, var(--theme-palette-color-7, #fafaf9))"]
+"backgroundColor": ["var(--wp--preset--color--palette-color-8, var(--theme-palette-color-8, #fffffe))"]
+```
+NOT generic: `var(--wp--preset--color--white)` or `var(--wp--preset--color--light-grey)`
+
+**Exception - text on dark backgrounds:**
+Use `"color":["var(--wp--preset--color--white, #ffffff)"]` for text over dark overlays.
+
 ## Output
 
 1. Generate the complete Greenshift block HTML code

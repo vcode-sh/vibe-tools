@@ -39,6 +39,24 @@ Section (alignfull, background image/video)
 - Overlay: `overlay: {"color":"#000000","opacity":0.3}`
 - Animations with increasing delay (0, 300, 600, 900ms)
 
+## Typography Rules
+
+Hero sections have dark backgrounds - text needs explicit white color.
+
+**Heading (h1):**
+- `"color":["var(--wp--preset--color--white, #ffffff)"]`
+- **NO fontSize** - theme handles h1 size automatically
+- Add `marginBottom` for spacing
+
+**Subtitle/Description:**
+- `"color":["rgba(255,255,255,0.9)"]` for softer white
+- **NO fontSize** unless non-default size needed
+
+Example heading JSON:
+```json
+{"textContent":"Title","tag":"h1","styleAttributes":{"color":["var(--wp--preset--color--white, #ffffff)"],"marginBottom":["var(--wp--preset--spacing--50, 1.5rem)"]}}
+```
+
 ## Output
 
 1. Generate the complete Greenshift block HTML code
