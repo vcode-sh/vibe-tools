@@ -97,6 +97,45 @@ The `styleAttributes` object controls the flexbox behavior for column layouts:
 
 ---
 
+## Critical: Box-Sizing for Columns with Padding
+
+**IMPORTANT**: When column children have padding, add `boxSizing: ["border-box"]` to prevent columns from overflowing and wrapping unexpectedly.
+
+### The Problem
+
+CSS default `box-sizing: content-box` adds padding ON TOP of the width. For 50/50 columns where one column has 80px left + 80px right padding:
+
+| Element | Width | Padding | Actual Width |
+|---------|-------|---------|--------------|
+| Column 1 | 50% | 0px | 50% |
+| Column 2 | 50% | 160px | 50% + 160px = overflow! |
+
+This causes `flexWrap: ["wrap"]` to push the second column to a new row.
+
+### The Solution
+
+Always add `boxSizing: ["border-box"]` to column children with padding:
+
+```json
+{
+  "id": "gsbp-column1",
+  "type": "inner",
+  "localId": "gsbp-column1",
+  "styleAttributes": {
+    "boxSizing": ["border-box"],
+    "backgroundColor": ["#6b6357"],
+    "paddingTop": ["4rem"],
+    "paddingRight": ["5rem"],
+    "paddingBottom": ["4rem"],
+    "paddingLeft": ["5rem"]
+  }
+}
+```
+
+**Best Practice**: Add `boxSizing: ["border-box"]` to ALL column children in multi-column layouts as a default.
+
+---
+
 ## Full-Width Section Wrapper
 
 For full-width sections with centered content, use `align: "full"` with the following structure.

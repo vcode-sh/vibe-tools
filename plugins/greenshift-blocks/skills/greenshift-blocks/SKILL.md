@@ -73,6 +73,8 @@ Every Greenshift element follows this pattern:
 
 6. **Links**: `linkNewWindow: true` = `target="_blank"` + auto `rel="noopener"`
 
+7. **Column Children with Padding**: Always add `boxSizing: ["border-box"]` to column children that have padding. Without this, padding adds to width and causes columns to wrap unexpectedly. See `docs/03-layouts.md` for details.
+
 **See `docs/01-core-structure.md` and `docs/02-attributes.md` for full details.**
 
 ---
