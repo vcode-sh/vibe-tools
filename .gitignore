@@ -41,3 +41,4 @@
 *.pem
 secrets/
 .secrets/
+.mcp.json
