@@ -16,6 +16,14 @@
       "version": "1.5.3",
       "category": "wordpress",
       "tags": ["wordpress", "gutenberg", "greenshift", "blocks", "layouts"]
+    },
+    {
+      "name": "skill-maker",
+      "source": "./plugins/skill-maker",
+      "description": "Create, review, test, and package Anthropic Agent Skills for Claude.ai and Claude Code. Beginner tutorial, interactive wizard, 8 templates, quality auditing, trigger testing, iterative improvement, and distribution packaging.",
+      "version": "1.1.0",
+      "category": "developer-tools",
+      "tags": ["skills", "agent-skills", "templates", "validation", "packaging"]
     }
   ]
 }
