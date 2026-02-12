@@ -4,6 +4,8 @@ Create, review, test, and package high-quality Anthropic Agent Skills for Claude
 
 ## Features
 
+- **From documentation** (`/sm:from-docs`) - Analyze a folder of docs and auto-generate a comprehensive skill
+- **From project** (`/sm:from-project`) - Scan your codebase and create a skill from code patterns and conventions
 - **Beginner tutorial** (`/sm:learn`) - Hands-on guide to build your first skill with explanations at every step
 - **Interactive wizard** (`/sm:create`) - Step-by-step guided skill creation with validation at each stage
 - **Quick generation** (`/sm:quick`) - Describe what you want, get a complete skill generated at once
@@ -21,6 +23,8 @@ Create, review, test, and package high-quality Anthropic Agent Skills for Claude
 
 | Command | Description | Best For |
 |---------|-------------|----------|
+| `/sm:from-docs` | Create skill from a documentation folder | Package/API docs |
+| `/sm:from-project` | Create skill from project codebase analysis | Project conventions |
 | `/sm:learn` | Beginner tutorial - build your first skill hands-on | New users |
 | `/sm:create` | Interactive wizard - guided creation step-by-step | Most users |
 | `/sm:quick` | Quick generation from a brief description | Power users |
@@ -35,6 +39,17 @@ Create, review, test, and package high-quality Anthropic Agent Skills for Claude
 
 ## Getting Started
 
+**Have documentation?** Create a skill from it:
+```
+/sm:from-docs ./path/to/docs/
+```
+
+**Have a project?** Create a skill from your code patterns:
+```
+/sm:from-project ./my-app websocket
+/sm:from-project ./my-app --full
+```
+
 **New to skills?** Start with the beginner tutorial:
 ```
 /sm:learn
@@ -45,23 +60,20 @@ Create, review, test, and package high-quality Anthropic Agent Skills for Claude
 /sm:create
 ```
 
-**Have an idea, want it fast?** Use quick generation:
-```
-/sm:quick Generate changelog entries from git commits
-```
-
 ## Recommended Workflow
 
 ```
-1. /sm:learn     → Learn the basics (first time only)
-2. /sm:create    → Build your skill with guidance
-   or /sm:template → Start from a pre-built template
-3. /sm:validate  → Quick structural check
-4. /sm:test      → Generate and verify test cases
-5. /sm:review    → Full quality audit
-6. /sm:fix       → Auto-fix any issues
-7. /sm:improve   → Refine based on real-world usage
-8. /sm:package   → Package for distribution
+1. /sm:learn        → Learn the basics (first time only)
+2. /sm:from-docs    → Create skill from existing documentation
+   or /sm:from-project → Create skill from your codebase
+   or /sm:create    → Build your skill with guidance
+   or /sm:template  → Start from a pre-built template
+3. /sm:validate     → Quick structural check
+4. /sm:test         → Generate and verify test cases
+5. /sm:review       → Full quality audit
+6. /sm:fix          → Auto-fix any issues
+7. /sm:improve      → Refine based on real-world usage
+8. /sm:package      → Package for distribution
 ```
 
 ## Templates

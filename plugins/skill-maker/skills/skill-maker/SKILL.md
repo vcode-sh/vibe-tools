@@ -1,6 +1,6 @@
 ---
 name: skill-maker
-description: Create, review, test, and package Anthropic Agent Skills for Claude.ai and Claude Code. Use when user asks to "create a skill", "build a skill", "generate SKILL.md", "review my skill", "test my skill", "validate skill structure", "improve my skill", "package skill for distribution", "learn about skills", or asks about skill best practices, trigger phrases, progressive disclosure, or MCP-enhanced skills. Key capabilities: interactive wizard, beginner tutorial, quick generation, 8 pre-built templates, quality auditing, trigger testing, iterative improvement, and distribution packaging. Do NOT use for general YAML editing, resume skills, or non-Anthropic skill systems.
+description: Create, review, test, and package Anthropic Agent Skills for Claude.ai and Claude Code. Use when user asks to "create a skill", "build a skill", "generate SKILL.md", "review my skill", "test my skill", "improve my skill", "create skill from documentation", "create skill from project", "analyze docs and make a skill", "scan my project for patterns", "package skill for distribution", "learn about skills", or asks about skill best practices, trigger phrases, or MCP-enhanced skills. Key capabilities: create skills from documentation folders, create skills from project codebases, interactive wizard, beginner tutorial, quick generation, 8 templates, quality auditing, trigger testing, iterative improvement, and distribution packaging. Do NOT use for general YAML editing, resume skills, or non-Anthropic skill systems.
 ---
 
 # Skill Maker

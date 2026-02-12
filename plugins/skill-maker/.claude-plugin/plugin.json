@@ -1,7 +1,7 @@
 {
   "name": "skill-maker",
-  "version": "1.1.0",
-  "description": "Create, review, test, and package high-quality Anthropic Agent Skills for Claude.ai and Claude Code. Beginner tutorial, interactive wizard, quick generation, 8 templates, quality auditing, trigger testing, iterative improvement, and distribution packaging.",
+  "version": "1.2.0",
+  "description": "Create skills from documentation folders and project codebases. Review, test, and package Anthropic Agent Skills for Claude.ai and Claude Code. 13 commands including from-docs, from-project, beginner tutorial, interactive wizard, templates, quality auditing, and distribution packaging.",
   "author": {
     "name": "Vibe Code",
     "url": "https://x.com/vcode_sh"
@@ -16,7 +16,9 @@
     "validation",
     "testing",
     "packaging",
-    "tutorial"
+    "tutorial",
+    "documentation",
+    "codebase-analysis"
   ],
   "repository": "https://github.com/vcode-sh/vibe-tools",
   "license": "MIT"

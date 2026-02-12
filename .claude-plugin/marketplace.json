@@ -20,10 +20,10 @@
     {
       "name": "skill-maker",
       "source": "./plugins/skill-maker",
-      "description": "Create, review, test, and package Anthropic Agent Skills for Claude.ai and Claude Code. Beginner tutorial, interactive wizard, 8 templates, quality auditing, trigger testing, iterative improvement, and distribution packaging.",
-      "version": "1.1.0",
+      "description": "Create skills from documentation folders and project codebases. Review, test, and package Anthropic Agent Skills for Claude.ai and Claude Code. 13 commands including from-docs, from-project, beginner tutorial, templates, quality auditing, and distribution packaging.",
+      "version": "1.2.0",
       "category": "developer-tools",
-      "tags": ["skills", "agent-skills", "templates", "validation", "packaging"]
+      "tags": ["skills", "agent-skills", "templates", "validation", "packaging", "documentation", "codebase-analysis"]
     }
   ]
 }

@@ -12,6 +12,7 @@ A Claude Code plugin marketplace for people who'd rather vibe than grind. Built 
 
 # Install what you need
 /plugin install greenshift-blocks@vibe-tools
+/plugin install skill-maker@vibe-tools
 ```
 
 That's it. No npm install, no dependency hell, no "works on my machine" moments.
@@ -21,6 +22,9 @@ That's it. No npm install, no dependency hell, no "works on my machine" moments.
 | Plugin | What it does | Vibe level |
 |--------|--------------|------------|
 | [greenshift-blocks](./plugins/greenshift-blocks) | WordPress Gutenberg blocks that actually work | Maximum |
+| [skill-maker](./plugins/skill-maker) | Create, review & package Anthropic Agent Skills | Over 9000 |
+
+---
 
 ## greenshift-blocks
 
@@ -54,18 +58,57 @@ Generate production-ready WordPress Gutenberg blocks using Greenshift/GreenLight
 
 [Full docs](./plugins/greenshift-blocks/README.md) for the curious.
 
+---
+
+## skill-maker
+
+Create, review, test, and package Anthropic Agent Skills for Claude.ai and Claude Code. Because writing YAML frontmatter by hand and hoping Claude triggers your skill is not a vibe.
+
+**What you get:**
+- Create skills from docs folders or project codebases automatically
+- Interactive wizard, quick generation, or 8 ready-made templates
+- Quality auditing with auto-fix — no more "why won't it trigger?"
+- Trigger testing so you know it actually works before shipping
+- Package for Claude.ai (zip) or Claude Code (plugin scaffold)
+
+**Commands:**
+
+| Command | Does the thing |
+|---------|----------------|
+| `/sm:from-docs` | Point it at a docs folder, get a skill back |
+| `/sm:from-project` | Scan your codebase, extract patterns into a skill |
+| `/sm:learn` | Beginner tutorial — build your first skill hands-on |
+| `/sm:create` | Interactive wizard for guided creation |
+| `/sm:quick` | Describe it, get it. No questions asked. |
+| `/sm:template` | 8 pre-built templates for every skill category |
+| `/sm:review` | Full quality audit with scoring |
+| `/sm:test` | Generate trigger, functional, and perf tests |
+| `/sm:fix` | Auto-fix issues found in review |
+| `/sm:improve` | Iterative improvement from real-world feedback |
+| `/sm:validate` | Quick pass/fail structural check |
+| `/sm:package` | Package for Claude.ai or Claude Code distribution |
+| `/sm:docs` | Interactive reference — 15 topics with examples |
+
+[Full docs](./plugins/skill-maker/README.md) for the curious.
+
+---
+
 ## Structure
 
 ```
 vibe-tools/
 ├── .claude-plugin/
-│   └── marketplace.json      # The brain
+│   └── marketplace.json         # The brain
 ├── plugins/
-│   └── greenshift-blocks/    # The muscle
-│       ├── commands/         # /gs:* magic
-│       ├── agents/           # The specialists
-│       └── skills/           # The knowledge
-└── README.md                 # You are here
+│   ├── greenshift-blocks/       # WordPress block generator
+│   │   ├── commands/            # /gs:* magic (14 commands)
+│   │   ├── agents/              # greenshift-builder
+│   │   └── skills/              # Block knowledge + docs + templates
+│   └── skill-maker/             # Skill creation toolkit
+│       ├── commands/            # /sm:* magic (13 commands)
+│       ├── agents/              # skill-builder
+│       └── skills/              # Skill-making knowledge + templates + references
+└── README.md                    # You are here
 ```
 
 ## Contributing
