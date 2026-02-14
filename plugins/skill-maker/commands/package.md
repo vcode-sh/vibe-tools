@@ -29,6 +29,65 @@ Package target:
 3. Both
 ```
 
+## Step 3: Project Scan & Output Location
+
+Before packaging, scan the project to suggest the best output location.
+
+### 3a: Project Discovery
+
+Scan the working directory and surrounding project structure:
+- Read `package.json`, `pyproject.toml`, `composer.json`, or similar manifest (if present)
+- Glob for existing skill-related directories: `**/skills/`, `**/*-plugin/`, `**/.claude-plugin/`
+- Glob for existing zip packages: `**/*.zip` matching skill patterns
+- Check for common project structures: `src/`, `dist/`, `build/`, `output/`, `packages/`
+- Note the current working directory and the skill source location
+
+### 3b: Suggest Output Location
+
+Present a summary of what was found and suggest locations:
+
+```
+PROJECT SCAN: [project name or cwd]
+═══════════════════════════════════
+
+[If relevant structures found:]
+Detected:
+  - Skills directory: ./skills/ (contains X skills)
+  - Plugin directory: ./plugins/ (contains Y plugins)
+  - Existing packages: ./dist/skill-name.zip
+
+[If nothing specific found:]
+No existing skill/plugin directories detected.
+```
+
+Then ask where to save the packaged output. Build the options dynamically based on what was found:
+
+**For Claude.ai (zip):**
+```
+Where should I save the zip package?
+1. [Detected path, e.g., ./dist/skill-name.zip] (Recommended — existing packages here)
+2. Same directory as source skill: [source-parent]/[skill-name].zip
+3. Current directory: ./[skill-name].zip
+4. Custom path
+```
+
+**For Claude Code (plugin scaffold):**
+```
+Where should I create the plugin scaffold?
+1. [Detected path, e.g., ./plugins/skill-name-plugin/] (Recommended — existing plugins here)
+2. Next to source skill: [source-parent]/[skill-name]-plugin/
+3. Current directory: ./[skill-name]-plugin/
+4. Custom path
+```
+
+**Rules for suggestions:**
+- If a `plugins/` directory exists with other `.claude-plugin/` manifests, suggest it first as recommended
+- If a `skills/` directory exists, suggest the parent of that directory
+- If existing `.zip` skill packages are found, suggest the same directory
+- If nothing is detected, suggest current directory as recommended
+- Always include the custom path option
+- For "Both" target, ask once with combined options or ask separately per target
+
 ## Option 1: Claude.ai Package
 
 1. Verify the skill folder structure is correct
@@ -40,7 +99,7 @@ Package target:
    ├── scripts/
    └── assets/
    ```
-3. Save as `[skill-name].zip` in the current directory
+3. Save the zip to the location chosen in Step 3
 4. Provide upload instructions:
    ```
    Upload to Claude.ai:
@@ -53,7 +112,7 @@ Package target:
 
 ## Option 2: Claude Code Plugin
 
-1. Create a plugin scaffold around the skill:
+1. Create a plugin scaffold at the location chosen in Step 3:
    ```
    skill-name-plugin/
    ├── .claude-plugin/
@@ -93,9 +152,7 @@ Package target:
 
 ## Option 3: Both
 
-Run both packaging processes. Save outputs to:
-- `./[skill-name].zip` (Claude.ai)
-- `./[skill-name]-plugin/` (Claude Code)
+Run both packaging processes. Save outputs to the locations chosen in Step 3.
 
 ## Pre-Distribution Checklist
 
@@ -124,8 +181,8 @@ Present summary:
 PACKAGED: [skill-name]
 ═══════════════════════
 
-Claude.ai:   [skill-name].zip (X KB)
-Claude Code:  [skill-name]-plugin/ (Y files)
+Claude.ai:   [chosen-path]/[skill-name].zip (X KB)
+Claude Code:  [chosen-path]/[skill-name]-plugin/ (Y files)
 
 Next steps:
 - Test locally before distributing
