@@ -1,0 +1,25 @@
+{
+  "name": "shadcn-guide",
+  "version": "1.2.0",
+  "description": "Build React UIs with shadcn/ui — the open-code component system. Covers 58+ components (Base UI and Radix variants), CLI commands, components.json configuration, CSS variable theming (OKLCH), framework installation (Next.js, Vite, Astro, Remix, Laravel, Gatsby, TanStack), registry system, form patterns (React Hook Form, TanStack Form, Server Actions), dark mode, RTL, and monorepo setup.",
+  "author": {
+    "name": "Vibe Code",
+    "url": "https://x.com/vcode_sh"
+  },
+  "keywords": [
+    "shadcn",
+    "ui",
+    "react",
+    "components",
+    "tailwind",
+    "radix",
+    "base-ui",
+    "theming",
+    "forms",
+    "dark-mode",
+    "rtl",
+    "registry"
+  ],
+  "repository": "https://github.com/vcode-sh/vibe-skills",
+  "license": "MIT"
+}

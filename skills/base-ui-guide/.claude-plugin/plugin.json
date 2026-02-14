@@ -1,0 +1,22 @@
+{
+  "name": "base-ui-guide",
+  "version": "1.0.0",
+  "description": "Build accessible React UIs with Base UI (@base-ui/react). Covers all 35+ unstyled, headless components (Dialog, Menu, Select, Combobox, Tabs, Accordion, Toast, Form, Slider, etc.), styling patterns (Tailwind, CSS Modules, CSS-in-JS), animations, composition via render props, form integration, and TypeScript types.",
+  "author": {
+    "name": "Vibe Code",
+    "url": "https://x.com/vcode_sh"
+  },
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "accessible",
+    "unstyled",
+    "headless",
+    "base-ui",
+    "styling",
+    "forms"
+  ],
+  "repository": "https://github.com/vcode-sh/vibe-skills",
+  "license": "MIT"
+}

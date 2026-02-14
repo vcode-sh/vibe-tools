@@ -1,0 +1,23 @@
+{
+  "name": "orpc-guide",
+  "version": "1.1.0",
+  "description": "Build type-safe APIs with oRPC — end-to-end type safety meets OpenAPI compliance. Covers procedures, routers, middleware, context, error handling, file uploads, SSE/streaming, server actions, contract-first development, OpenAPI spec generation, and 20+ framework adapters (Next.js, Express, Hono, Fastify, WebSocket, Electron, Cloudflare Workers, and more). Includes TanStack Query, SWR, Better Auth, AI SDK, and Sentry integrations.",
+  "author": {
+    "name": "Vibe Code",
+    "url": "https://x.com/vcode_sh"
+  },
+  "keywords": [
+    "orpc",
+    "rpc",
+    "typescript",
+    "openapi",
+    "type-safe",
+    "api",
+    "server",
+    "client",
+    "middleware",
+    "streaming"
+  ],
+  "repository": "https://github.com/vcode-sh/vibe-skills",
+  "license": "MIT"
+}

@@ -13,6 +13,11 @@ A Claude Code plugin marketplace for people who'd rather vibe than grind. Built 
 # Install what you need
 /plugin install greenshift-blocks@vibe-tools
 /plugin install skill-maker@vibe-tools
+/plugin install base-ui-guide@vibe-tools
+/plugin install shadcn-guide@vibe-tools
+/plugin install hono-guide@vibe-tools
+/plugin install orpc-guide@vibe-tools
+/plugin install tanstack-hotkeys-guide@vibe-tools
 ```
 
 That's it. No npm install, no dependency hell, no "works on my machine" moments.
@@ -23,6 +28,28 @@ That's it. No npm install, no dependency hell, no "works on my machine" moments.
 |--------|--------------|------------|
 | [greenshift-blocks](./plugins/greenshift-blocks) | WordPress Gutenberg blocks that actually work | Maximum |
 | [skill-maker](./plugins/skill-maker) | Create, review & package Anthropic Agent Skills | Over 9000 |
+
+## Skill Guides
+
+Library-specific guides that teach Claude how to use frameworks correctly. Install one and Claude instantly knows the API, patterns, and best practices.
+
+```bash
+/plugin install base-ui-guide@vibe-tools
+/plugin install shadcn-guide@vibe-tools
+/plugin install hono-guide@vibe-tools
+/plugin install orpc-guide@vibe-tools
+/plugin install tanstack-hotkeys-guide@vibe-tools
+```
+
+| Guide | Library | What Claude learns |
+|-------|---------|-------------------|
+| [base-ui-guide](./skills/base-ui-guide) | Base UI (`@base-ui/react`) | 35+ unstyled headless components, styling patterns, animations, composition |
+| [shadcn-guide](./skills/shadcn-guide) | shadcn/ui (`shadcn`) | 58+ components, theming, registry system, form patterns, dark mode |
+| [hono-guide](./skills/hono-guide) | Hono (`hono`) | Routing, middleware, RPC client, multi-runtime deployment, streaming/SSE |
+| [orpc-guide](./skills/orpc-guide) | oRPC (`@orpc/*`) | Type-safe APIs, OpenAPI generation, 20+ framework adapters, streaming |
+| [tanstack-hotkeys-guide](./skills/tanstack-hotkeys-guide) | TanStack Hotkeys (`@tanstack/react-hotkeys`) | Keyboard shortcuts, sequences, recording, cross-platform Mod keys |
+
+More guides are added over time as skills get packaged in [vibe-skills](https://github.com/vcode-sh/vibe-skills).
 
 ---
 
@@ -99,7 +126,7 @@ Create, review, test, and package Anthropic Agent Skills for Claude.ai and Claud
 vibe-tools/
 ├── .claude-plugin/
 │   └── marketplace.json         # The brain
-├── plugins/
+├── plugins/                     # Rich plugins (commands, agents, skills)
 │   ├── greenshift-blocks/       # WordPress block generator
 │   │   ├── commands/            # /gs:* magic (14 commands)
 │   │   ├── agents/              # greenshift-builder
@@ -108,6 +135,14 @@ vibe-tools/
 │       ├── commands/            # /sm:* magic (13 commands)
 │       ├── agents/              # skill-builder
 │       └── skills/              # Skill-making knowledge + templates + references
+├── skills/                      # Skill guide plugins (auto-synced)
+│   ├── base-ui-guide/           # Base UI components
+│   ├── hono-guide/              # Hono web framework
+│   ├── orpc-guide/              # oRPC type-safe APIs
+│   ├── shadcn-guide/            # shadcn/ui components
+│   └── tanstack-hotkeys-guide/  # TanStack keyboard shortcuts
+├── scripts/
+│   └── import-skills.sh         # Sync skills from vibe-skills
 └── README.md                    # You are here
 ```
 

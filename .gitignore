@@ -42,3 +42,4 @@
 secrets/
 .secrets/
 .mcp.json
+docs/skill-import-guide.md

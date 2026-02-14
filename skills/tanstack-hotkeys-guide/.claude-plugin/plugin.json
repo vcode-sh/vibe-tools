@@ -1,0 +1,18 @@
+{
+  "name": "tanstack-hotkeys-guide",
+  "version": "1.0.0",
+  "description": "Add type-safe keyboard shortcuts to React apps with TanStack Hotkeys. Covers hotkey registration, cross-platform Mod shortcuts, Vim-style multi-key sequences, hotkey recording for customization UIs, real-time key state tracking, platform-aware display formatting, and devtools integration.",
+  "author": {
+    "name": "Vibe Code",
+    "url": "https://x.com/vcode_sh"
+  },
+  "keywords": [
+    "tanstack",
+    "hotkeys",
+    "keyboard-shortcuts",
+    "react",
+    "typescript"
+  ],
+  "repository": "https://github.com/vcode-sh/vibe-skills",
+  "license": "MIT"
+}

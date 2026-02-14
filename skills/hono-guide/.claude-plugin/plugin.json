@@ -1,0 +1,25 @@
+{
+  "name": "hono-guide",
+  "version": "1.0.0",
+  "description": "Build ultrafast web APIs and apps with Hono across any JavaScript runtime. Covers routing, Context API, 25+ built-in middleware (auth, CORS, caching, security), type-safe RPC client, Zod/Standard Schema validation, JSX rendering, streaming/SSE, WebSocket, cookie/JWT helpers, testing patterns, and deployment to Cloudflare Workers, Bun, Deno, Node.js, AWS Lambda, Vercel, Netlify, and more.",
+  "author": {
+    "name": "Vibe Code",
+    "url": "https://x.com/vcode_sh"
+  },
+  "keywords": [
+    "hono",
+    "web-framework",
+    "api",
+    "cloudflare-workers",
+    "bun",
+    "deno",
+    "nodejs",
+    "typescript",
+    "edge",
+    "serverless",
+    "rpc",
+    "middleware"
+  ],
+  "repository": "https://github.com/vcode-sh/vibe-skills",
+  "license": "MIT"
+}
