@@ -5,7 +5,7 @@ argument-hint: [path to skill folder or SKILL.md]
 
 # Quick Skill Validation
 
-Run a fast structural validation check on a skill. Lighter than `/sm:review` - focuses on structure and format, not quality.
+Run a fast structural validation check on a skill. Lighter than `/skill-maker:review` - focuses on structure and format, not quality.
 
 ## Input
 
@@ -67,4 +67,4 @@ Result: [ALL PASS / X ISSUES FOUND]
 
 If issues found, list each with the specific fix needed.
 
-If all pass: "Skill structure is valid. Run `/sm:review` for a full quality audit."
+If all pass: "Skill structure is valid. Run `/skill-maker:review` for a full quality audit."

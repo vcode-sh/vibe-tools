@@ -13,7 +13,7 @@
       "name": "greenshift-blocks",
       "source": "./plugins/greenshift-blocks",
       "description": "Generate WordPress Gutenberg blocks using Greenshift/GreenLight plugin. Create sections, layouts, hero sections, galleries, complete pages, and migrate old blocks to modern GreenLight Element format.",
-      "version": "1.5.3",
+      "version": "1.5.4",
       "category": "wordpress",
       "tags": [
         "wordpress",
@@ -27,7 +27,7 @@
       "name": "skill-maker",
       "source": "./plugins/skill-maker",
       "description": "Create skills from documentation folders and project codebases. Review, test, and package Anthropic Agent Skills for Claude.ai and Claude Code. 13 commands including from-docs, from-project, beginner tutorial, templates, quality auditing, and distribution packaging.",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "category": "developer-tools",
       "tags": [
         "skills",

@@ -42,11 +42,11 @@ Provide: $ARGUMENTS
 ## Example usage
 
 ```
-/gs:element text Heading "About Us"
-/gs:element image 800x600 "hero background"
-/gs:element button primary "Contact Us"
-/gs:element icon arrow-right 24px
-/gs:element spacer 50px
+/greenshift-blocks:element text Heading "About Us"
+/greenshift-blocks:element image 800x600 "hero background"
+/greenshift-blocks:element button primary "Contact Us"
+/greenshift-blocks:element icon arrow-right 24px
+/greenshift-blocks:element spacer 50px
 ```
 
 ## Style parameters

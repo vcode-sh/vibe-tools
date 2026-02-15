@@ -16,7 +16,7 @@ If `$ARGUMENTS` is empty, ask: "Which skill should I package? Provide the path t
 
 ## Step 1: Pre-Package Validation
 
-Run quick validation first (same as `/sm:validate`).
+Run quick validation first (same as `/skill-maker:validate`).
 If critical issues found, warn the user and offer to fix before packaging.
 
 ## Step 2: Choose Target
@@ -157,8 +157,8 @@ Run both packaging processes. Save outputs to the locations chosen in Step 3.
 ## Pre-Distribution Checklist
 
 Before packaging, verify:
-- [ ] Skill passes /sm:validate with no critical issues
-- [ ] /sm:test trigger tests show 90%+ accuracy
+- [ ] Skill passes /skill-maker:validate with no critical issues
+- [ ] /skill-maker:test trigger tests show 90%+ accuracy
 - [ ] At least one functional test passes
 - [ ] Description focuses on OUTCOMES, not implementation details
 - [ ] Version number set in metadata (if applicable)
@@ -186,7 +186,7 @@ Claude Code:  [chosen-path]/[skill-name]-plugin/ (Y files)
 
 Next steps:
 - Test locally before distributing
-- Run /sm:test to verify trigger accuracy
+- Run /skill-maker:test to verify trigger accuracy
 - Consider hosting on GitHub for sharing
 - Add to a marketplace if available
 

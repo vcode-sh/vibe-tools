@@ -60,7 +60,7 @@ After loading the template, guide the user through filling in placeholders:
 
 ## Save
 
-Follow the same save process as `/sm:create`:
+Follow the same save process as `/skill-maker:create`:
 1. Ask user for save location
 2. Create directory structure
 3. Write all files

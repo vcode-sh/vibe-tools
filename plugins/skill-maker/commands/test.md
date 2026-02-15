@@ -148,7 +148,7 @@ HOW TO RUN THESE TESTS:
 2. For each triggering test, send the query and note if skill loaded
 3. For each functional test, run the scenario and check all conditions
 4. Track metrics against the performance baseline
-5. If trigger accuracy <90%, run /sm:improve with the results
+5. If trigger accuracy <90%, run /skill-maker:improve with the results
 ```
 
 ## Step 6: Offer to Run Trigger Tests
@@ -166,4 +166,4 @@ Present results with specific description improvements to fix any RISK/FAIL case
 - Run tests BEFORE distributing the skill
 - Re-run tests after any description changes
 - Track trigger accuracy over time to catch regressions
-- Use /sm:improve to fix issues found during testing
+- Use /skill-maker:improve to fix issues found during testing

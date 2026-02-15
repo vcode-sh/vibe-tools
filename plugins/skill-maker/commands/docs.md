@@ -102,7 +102,7 @@ Measure skill effectiveness with:
 - **How to measure**: Run 10-20 test queries, compare with/without skill, track tokens consumed
 
 ### Topic 14: Iteration
-The most effective skill creators iterate on a single challenging task until Claude succeeds, then extract the winning approach. Use `/sm:improve` to feed back real-world issues and refine the skill.
+The most effective skill creators iterate on a single challenging task until Claude succeeds, then extract the winning approach. Use `/skill-maker:improve` to feed back real-world issues and refine the skill.
 
 ### Topic 15: When to Split Skills
 Split a skill into multiple focused skills when:

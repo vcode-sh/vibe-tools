@@ -18,7 +18,7 @@ If `$ARGUMENTS` is empty, ask: "Which skill should I fix? Provide the path to th
 
 ### 1. Run Review
 
-Perform the same comprehensive review as `/sm:review`:
+Perform the same comprehensive review as `/skill-maker:review`:
 - Read SKILL.md and all supporting files
 - Assess structure, frontmatter, description, body, triggering
 

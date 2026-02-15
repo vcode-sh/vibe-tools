@@ -631,7 +631,7 @@ If the image path is invalid:
 
 ## Example Workflow
 
-1. User provides: `/gs:clone /path/to/screenshot.png`
+1. User provides: `/greenshift-blocks:clone /path/to/screenshot.png`
 2. Read and analyze the image thoroughly
 3. Ask user: "CSS Variables or Exact Colors?"
 4. Ask user: "Static, Subtle, or Full Animations?"

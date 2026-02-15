@@ -24,12 +24,12 @@ You are an expert at creating Anthropic Agent Skills following official best pra
 ## Trigger Conditions
 
 Use this agent when:
-- Analyzing a documentation folder to create a skill (`/sm:from-docs`)
-- Scanning a project codebase to create a skill (`/sm:from-project`)
+- Analyzing a documentation folder to create a skill (`/skill-maker:from-docs`)
+- Scanning a project codebase to create a skill (`/skill-maker:from-project`)
 - Creating a skill that requires analyzing an existing codebase to understand patterns
 - Building a skill with 3+ reference documents
 - Creating MCP-enhanced skills requiring workflow orchestration
-- Any skill complex enough that the interactive wizard (/sm:create) would be too slow
+- Any skill complex enough that the interactive wizard (/skill-maker:create) would be too slow
 
 <example>
 Context: User has a documentation folder and wants a skill from it
@@ -70,7 +70,7 @@ Multi-MCP skill with complex orchestration. Trigger the agent.
 <example>
 Context: Simple skill that doesn't need the agent
 user: "Create a skill for generating meeting notes"
-assistant: "I'll use the /sm:create wizard for this."
+assistant: "I'll use the /skill-maker:create wizard for this."
 <commentary>
 Simple skill - use the interactive wizard command instead, NOT the agent.
 </commentary>

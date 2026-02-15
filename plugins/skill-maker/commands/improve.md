@@ -21,7 +21,7 @@ If path is missing, ask: "Which skill should I improve? Provide the path to the 
 
 Read the skill and gather context:
 1. Read SKILL.md and all supporting files
-2. Run a quick review (same as `/sm:review`) to establish baseline score
+2. Run a quick review (same as `/skill-maker:review`) to establish baseline score
 3. Present current state:
 
 ```
@@ -142,7 +142,7 @@ If you fixed output, test this scenario:
 
 ```
 Improvement round complete. Options:
-1. Run /sm:test to generate a full test suite
+1. Run /skill-maker:test to generate a full test suite
 2. Continue improving (provide more feedback)
 3. Done - the skill is ready
 ```

@@ -214,8 +214,8 @@ Key coverage:
   - [X] error patterns documented
 
 Next steps:
-  /sm:test [skill-path]    → Verify triggers work
-  /sm:review [skill-path]  → Full quality audit
+  /skill-maker:test [skill-path]    → Verify triggers work
+  /skill-maker:review [skill-path]  → Full quality audit
 ```
 
 ## Quality Rules

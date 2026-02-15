@@ -210,19 +210,19 @@ CONGRATULATIONS! 🎉
 You've built your first Anthropic Agent Skill! Here's what to do next:
 
   TEST IT:
-    /sm:test [path]    → Generate test cases for your skill
+    /skill-maker:test [path]    → Generate test cases for your skill
 
   REVIEW IT:
-    /sm:review [path]  → Get a detailed quality audit
+    /skill-maker:review [path]  → Get a detailed quality audit
 
   IMPROVE IT:
-    /sm:improve [path] → Refine based on real-world usage
+    /skill-maker:improve [path] → Refine based on real-world usage
 
   PACKAGE IT:
-    /sm:package [path] → Prepare for Claude.ai or Claude Code
+    /skill-maker:package [path] → Prepare for Claude.ai or Claude Code
 
   LEARN MORE:
-    /sm:docs           → Browse the full reference manual
+    /skill-maker:docs           → Browse the full reference manual
 
 CONCEPTS YOU LEARNED:
   ✓ What a skill is (folder + SKILL.md)

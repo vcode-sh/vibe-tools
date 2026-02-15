@@ -17,9 +17,9 @@ Parse the input:
 - **`--full` flag** (optional): Scan the entire project comprehensively instead of focusing on one topic
 
 **Examples:**
-- `/sm:from-project ./my-app websocket` → Focused scan of WebSocket implementation
-- `/sm:from-project ./my-app --full` → Full project scan
-- `/sm:from-project` → Scan current directory, ask for focus topic
+- `/skill-maker:from-project ./my-app websocket` → Focused scan of WebSocket implementation
+- `/skill-maker:from-project ./my-app --full` → Full project scan
+- `/skill-maker:from-project` → Scan current directory, ask for focus topic
 
 If no focus topic and no `--full` flag, ask:
 "What should the skill focus on? Options:
@@ -289,8 +289,8 @@ How this skill helps:
   - Configuration and env vars are documented
 
 Next steps:
-  /sm:test [skill-path]    → Verify triggers
-  /sm:review [skill-path]  → Quality audit
+  /skill-maker:test [skill-path]    → Verify triggers
+  /skill-maker:review [skill-path]  → Quality audit
 ```
 
 ## Important Rules

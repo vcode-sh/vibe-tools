@@ -32,32 +32,32 @@ Automatically activates when you use keywords like:
 #### Layout & Sections
 | Command | Description |
 |---------|-------------|
-| `/gs:section [description]` | Creates a full WordPress section |
-| `/gs:hero [title]` | Hero section with background and CTA |
-| `/gs:columns [2-4] [description]` | Column layout |
-| `/gs:page [type]` | Complete page |
+| `/greenshift-blocks:section [description]` | Creates a full WordPress section |
+| `/greenshift-blocks:hero [title]` | Hero section with background and CTA |
+| `/greenshift-blocks:columns [2-4] [description]` | Column layout |
+| `/greenshift-blocks:page [type]` | Complete page |
 
 #### Elements & Components
 | Command | Description |
 |---------|-------------|
-| `/gs:element [type] [description]` | Single element |
-| `/gs:gallery [type] [count]` | Image gallery (grid, masonry, slider) |
-| `/gs:card [type] [description]` | Card component |
+| `/greenshift-blocks:element [type] [description]` | Single element |
+| `/greenshift-blocks:gallery [type] [count]` | Image gallery (grid, masonry, slider) |
+| `/greenshift-blocks:card [type] [description]` | Card component |
 
 #### Interactive Blocks
 | Command | Description |
 |---------|-------------|
-| `/gs:accordion [items] [topic]` | Collapsible accordion/FAQ |
-| `/gs:tabs [count] [titles]` | Tabbed interface |
-| `/gs:counter [number] [label]` | Animated number counter |
-| `/gs:countdown [date] [event]` | Countdown timer |
-| `/gs:table [rows]x[cols] [topic]` | Responsive table |
-| `/gs:video [type] [url]` | Video (native, YouTube, Vimeo, lightbox) |
+| `/greenshift-blocks:accordion [items] [topic]` | Collapsible accordion/FAQ |
+| `/greenshift-blocks:tabs [count] [titles]` | Tabbed interface |
+| `/greenshift-blocks:counter [number] [label]` | Animated number counter |
+| `/greenshift-blocks:countdown [date] [event]` | Countdown timer |
+| `/greenshift-blocks:table [rows]x[cols] [topic]` | Responsive table |
+| `/greenshift-blocks:video [type] [url]` | Video (native, YouTube, Vimeo, lightbox) |
 
 #### Design Conversion
 | Command | Description |
 |---------|-------------|
-| `/gs:clone [image path]` | Convert screenshot/image to Greenshift blocks |
+| `/greenshift-blocks:clone [image path]` | Convert screenshot/image to Greenshift blocks |
 
 ### Agent: greenshift-builder
 
@@ -72,11 +72,11 @@ Create a hero section for a wedding photographer website
 ```
 
 ```
-/gs:hero Wedding Photography - Capture Your Special Day
+/greenshift-blocks:hero Wedding Photography - Capture Your Special Day
 ```
 
 ```
-/gs:columns 2 Text on left, image gallery on right
+/greenshift-blocks:columns 2 Text on left, image gallery on right
 ```
 
 ### Advanced
@@ -116,20 +116,20 @@ greenshift-blocks/
 ├── .claude-plugin/
 │   └── plugin.json          # Plugin manifest
 ├── commands/
-│   ├── section.md           # /gs:section
-│   ├── hero.md              # /gs:hero
-│   ├── columns.md           # /gs:columns
-│   ├── element.md           # /gs:element
-│   ├── gallery.md           # /gs:gallery
-│   ├── card.md              # /gs:card
-│   ├── page.md              # /gs:page
-│   ├── accordion.md         # /gs:accordion
-│   ├── tabs.md              # /gs:tabs
-│   ├── counter.md           # /gs:counter
-│   ├── countdown.md         # /gs:countdown
-│   ├── table.md             # /gs:table
-│   ├── video.md             # /gs:video
-│   └── clone.md             # /gs:clone (screenshot to blocks)
+│   ├── section.md           # /greenshift-blocks:section
+│   ├── hero.md              # /greenshift-blocks:hero
+│   ├── columns.md           # /greenshift-blocks:columns
+│   ├── element.md           # /greenshift-blocks:element
+│   ├── gallery.md           # /greenshift-blocks:gallery
+│   ├── card.md              # /greenshift-blocks:card
+│   ├── page.md              # /greenshift-blocks:page
+│   ├── accordion.md         # /greenshift-blocks:accordion
+│   ├── tabs.md              # /greenshift-blocks:tabs
+│   ├── counter.md           # /greenshift-blocks:counter
+│   ├── countdown.md         # /greenshift-blocks:countdown
+│   ├── table.md             # /greenshift-blocks:table
+│   ├── video.md             # /greenshift-blocks:video
+│   └── clone.md             # /greenshift-blocks:clone (screenshot to blocks)
 ├── agents/
 │   └── greenshift-builder.md
 ├── skills/
